@@ -28,10 +28,10 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 ## 📌 Project Goals
 
-- Allow users to predict Championship match results
-- Organise fixtures by matchweek
-- Hide predictions until kickoff to prevent copying
-- Display a leaderboard based on prediction accuracy
+- Allow users to predict Championship match results.
+- Organise fixtures by matchweek for easy navigation.
+- Hide predictions until kickoff to prevent copying.
+- Display a leaderboard showing participant scores.
 
 ---
 
@@ -60,22 +60,27 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 ## 🛠 Technologies Used
 
-- Python
-- Django
-- PostgreSQL
-- HTML
-- CSS
-- Bootstrap
-- JavaScript
-- Git
-- GitHub
+- Python – primary programming language
+- Django – web framework used to build the application
+- PostgreSQL – relational database used in production
+- HTML5 – page structure
+- CSS3 – styling
+- Bootstrap – responsive layout and UI components
+- JavaScript – front-end interactivity
+- Git – version control
+- GitHub – repository hosting
+- Heroku – cloud hosting platform used for deployment
 
-----
+---
 
 ## 🧱 Frameworks & Libraries
 
 - Django authentication system
 - Bootstrap for responsive layout
+- Gunicorn – WSGI server used in production
+- WhiteNoise – static file serving for Django
+- dj-database-url – database configuration helper
+- psycopg2-binary – PostgreSQL database adapter
 
 ---
 
@@ -125,7 +130,46 @@ _To be documented during development._
 
 ## 🚀 Deployment
 
-_To be completed once the application is deployed._
+This application is deployed using **Heroku**.
+
+### Deployment Steps
+
+1. Install deployment dependencies including Gunicorn, WhiteNoise and dj-database-url.
+2. Create a `Procfile` to define the web process:
+```
+web: gunicorn champpredict.wsgi
+```
+3. Configure environment variables such as `SECRET_KEY` and `DEBUG` using Heroku config variables.
+4. Add a Heroku PostgreSQL database add-on.
+5. Push the project to Heroku using: 
+```
+git push heroku main
+```
+6. Run database migrations on Heroku:
+```
+heroku run python manage.py migrate
+```
+7. The application can then be accessed via the Heroku app URL.
+
+---
+
+### Development Workflow
+
+1. Changes are committed locally using Git.
+2. Code is pushed to GitHub for version control.
+3. The application is deployed to Heroku using:
+
+```
+git push heroku main
+```
+
+---
+
+## 🌐 Live Application
+
+The deployed application can be accessed here:
+
+[ChampPredict Live Site](https://champ-predict-app-fa154106af37.herokuapp.com/)
 
 ---
 
