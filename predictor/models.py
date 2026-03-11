@@ -41,5 +41,9 @@ class Fixture(models.Model):
         default="upcoming"
     )
 
+    class Meta:
+        ordering = ["kickoff_datetime"]
+        unique_together = ("season", "matchweek", "home_team", "away_team")
+
     def __str__(self):
         return f"MW{self.matchweek} - {self.home_team} vs {self.away_team}"
