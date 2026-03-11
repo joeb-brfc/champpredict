@@ -56,13 +56,21 @@ class Fixture(models.Model):
         
         
 class Result(models.Model):
+    
     fixture = models.OneToOneField(
         Fixture,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="result"
     )
 
     home_goals = models.PositiveIntegerField()
     away_goals = models.PositiveIntegerField()
 
+    class Meta:
+        ordering = ["fixture__kickoff_datetime"]
+
     def __str__(self):
-        return f"{self.home_goals} - {self.away_goals}"
+        return (
+            f"{self.fixture.home_team} {self.home_goals} - "
+            f"{self.away_goals} {self.fixture.away_team}"
+        )
