@@ -14,6 +14,7 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 - [User Stories](#-user-stories)
 - [Technologies Used](#-technologies-used)
 - [Project Status](#-project-status)
+- [Features](#-features)
 - [Planned Features](#-planned-features)
 - [UX Design](#-ux-design)
 - [Wireframes](#-wireframes)
@@ -89,6 +90,17 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 This project is currently under development as part of the Level 5 Diploma in Web Application Development.
 
 Core features such as fixtures, predictions, and leaderboard functionality will be implemented during development.
+
+---
+
+## ⭐ Features
+
+- Teams are stored once in the database and reused across fixtures.
+- Fixtures link two teams together using relational database relationships.
+- Fixtures are organised by season and matchweek.
+- Validation prevents the same team being selected as both the home and away team in a fixture.
+- Fixtures are automatically ordered by kickoff time.
+- Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
 
 ---
 
