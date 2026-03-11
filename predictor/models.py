@@ -12,6 +12,12 @@ class Team(models.Model):
         return self.name
     
 class Fixture(models.Model):
+
+    STATUS_CHOICES = [
+        ("upcoming", "Upcoming"),
+        ("played", "Played"),
+    ]
+
     season = models.CharField(max_length=20)
     matchweek = models.PositiveIntegerField()
 
@@ -28,6 +34,12 @@ class Fixture(models.Model):
     )
 
     kickoff_datetime = models.DateTimeField()
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default="upcoming"
+    )
 
     def __str__(self):
         return f"MW{self.matchweek} - {self.home_team} vs {self.away_team}"
