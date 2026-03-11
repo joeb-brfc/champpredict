@@ -27,5 +27,7 @@ class Fixture(models.Model):
         related_name="away_fixtures"
     )
 
+    kickoff_datetime = models.DateTimeField()
+
     def __str__(self):
         return f"MW{self.matchweek} - {self.home_team} vs {self.away_team}"
