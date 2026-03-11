@@ -10,3 +10,10 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Fixture(models.Model):
+    season = models.CharField(max_length=20)
+    matchweek = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"Matchweek {self.matchweek}"
