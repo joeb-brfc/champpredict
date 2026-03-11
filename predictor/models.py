@@ -12,6 +12,7 @@ class Team(models.Model):
     def __str__(self):
         return self.name
     
+    
 class Fixture(models.Model):
 
     STATUS_CHOICES = [
@@ -52,3 +53,16 @@ class Fixture(models.Model):
     def clean(self):
         if self.home_team == self.away_team:
             raise ValidationError("A team cannot play itself.")
+        
+        
+class Result(models.Model):
+    fixture = models.OneToOneField(
+        Fixture,
+        on_delete=models.CASCADE
+    )
+
+    home_goals = models.PositiveIntegerField()
+    away_goals = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.home_goals} - {self.away_goals}"
