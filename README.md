@@ -113,6 +113,7 @@ Core features such as fixtures, predictions, and leaderboard functionality will 
 - Prediction locking after kickoff
 - Leaderboard displaying user scores
 - Admin panel for managing teams, fixtures and results
+- Prediction confirmation screen allowing users to review their selections before final submission.
 
 ---
 
@@ -202,4 +203,5 @@ _To be added during development._
 - Football Pontoon prediction game
 - Private prediction leagues
 - Prediction statistics and insights
+- Email confirmation receipts providing users with a timestamped summary of their submitted predictions.
 
