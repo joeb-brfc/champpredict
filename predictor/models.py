@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -47,3 +48,7 @@ class Fixture(models.Model):
 
     def __str__(self):
         return f"MW{self.matchweek} - {self.home_team} vs {self.away_team}"
+    
+    def clean(self):
+        if self.home_team == self.away_team:
+            raise ValidationError("A team cannot play itself.")
