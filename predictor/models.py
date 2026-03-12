@@ -97,5 +97,6 @@ class Prediction(models.Model):
     def __str__(self):
         return (
             f"{self.user.username} - "
-            f"{self.predicted_home_goals}:{self.predicted_away_goals}"
+            f"{self.fixture.home_team} {self.predicted_home_goals}:{self.predicted_away_goals} "
+            f"{self.fixture.away_team}"
         )
