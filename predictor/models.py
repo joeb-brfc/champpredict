@@ -114,3 +114,8 @@ class Prediction(models.Model):
             raise ValidationError(
                 "Predictions cannot be created or modified after kickoff."
         )
+
+    def calculate_points(self):
+    # If the fixture has no result yet, we cannot calculate points
+        if not hasattr(self.fixture, "result"):
+            return None
