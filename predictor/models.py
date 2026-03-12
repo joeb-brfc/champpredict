@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -73,4 +74,25 @@ class Result(models.Model):
         return (
             f"{self.fixture.home_team} {self.home_goals} - "
             f"{self.away_goals} {self.fixture.away_team}"
+        )
+    
+class Prediction(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    fixture = models.ForeignKey(
+        Fixture,
+        on_delete=models.CASCADE
+    )
+
+    predicted_home_goals = models.PositiveIntegerField()
+    predicted_away_goals = models.PositiveIntegerField()
+
+    def __str__(self):
+        return (
+            f"{self.user.username} - "
+            f"{self.predicted_home_goals}:{self.predicted_away_goals}"
         )
