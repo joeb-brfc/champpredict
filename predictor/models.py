@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -55,6 +56,9 @@ class Fixture(models.Model):
         if self.home_team == self.away_team:
             raise ValidationError("A team cannot play itself.")
         
+    def is_locked(self):
+        return timezone.now() >= self.kickoff_datetime
+        
         
 class Result(models.Model):
     
@@ -103,4 +107,10 @@ class Prediction(models.Model):
             f"{self.user.username} - "
             f"{self.fixture.home_team} {self.predicted_home_goals}:{self.predicted_away_goals} "
             f"{self.fixture.away_team}"
+        )
+    
+    def clean(self):
+        if self.fixture and self.fixture.is_locked():
+            raise ValidationError(
+                "Predictions cannot be created or modified after kickoff."
         )
