@@ -92,6 +92,7 @@ class Prediction(models.Model):
     predicted_away_goals = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return (
