@@ -91,6 +91,8 @@ class Prediction(models.Model):
     predicted_home_goals = models.PositiveIntegerField()
     predicted_away_goals = models.PositiveIntegerField()
 
+    created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return (
             f"{self.user.username} - "
