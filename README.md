@@ -29,7 +29,7 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 ## 📌 Project Goals
 
-- Allow users to predict Championship match results.
+- Allow registered users to submit and manage predictions for Championship fixtures.
 - Organise fixtures by matchweek for easy navigation.
 - Hide predictions until kickoff to prevent copying.
 - Display a leaderboard showing participant scores.
@@ -101,6 +101,8 @@ Core features such as fixtures, predictions, and leaderboard functionality will 
 - Validation prevents the same team being selected as both the home and away team in a fixture.
 - Fixtures are automatically ordered by kickoff time.
 - Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
+- Users can submit score predictions for fixtures.
+- Prediction records store timestamps showing when predictions were created and last updated.
 
 ---
 
@@ -131,7 +133,17 @@ _To be completed during the design stage._
 
 ## 🗄 Database Schema
 
-_To be completed once models are implemented._
+The application uses a relational database structure with the following core models:
+
+- Team – stores football clubs participating in the Championship.
+- Fixture – represents a scheduled match between two teams.
+- Result – stores the final score of a fixture.
+- Prediction – stores a user’s predicted score for a fixture.
+
+Relationships:
+
+User → Prediction → Fixture → Result  
+Team → Fixture
 
 ---
 
