@@ -150,7 +150,10 @@ Team → Fixture
 
 ## 🧪 Testing
 
-_To be documented during development._
+- Tested prediction points calculation with an exact score match and confirmed the method returned 3 points.
+- Tested prediction points calculation with a correct result but incorrect score and confirmed the method returned 1 point.
+- Tested prediction points calculation with an incorrect result and confirmed the method returned 0 points.
+- Tested prediction points calculation where no result existed and confirmed the method returned None.
 
 ---
 
