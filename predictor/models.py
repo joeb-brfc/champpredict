@@ -119,3 +119,13 @@ class Prediction(models.Model):
     # If the fixture has no result yet, we cannot calculate points
         if not hasattr(self.fixture, "result"):
             return None
+
+        actual_home = self.fixture.result.home_goals
+        actual_away = self.fixture.result.away_goals
+
+        predicted_home = self.predicted_home_goals
+        predicted_away = self.predicted_away_goals
+
+    # Exact score = 3 points
+        if predicted_home == actual_home and predicted_away == actual_away:
+            return 3    
