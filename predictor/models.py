@@ -94,6 +94,10 @@ class Prediction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["fixture__kickoff_datetime"]
+        unique_together = ("user", "fixture")
+
     def __str__(self):
         return (
             f"{self.user.username} - "
