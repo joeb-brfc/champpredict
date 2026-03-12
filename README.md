@@ -103,6 +103,7 @@ Core features such as fixtures, predictions, and leaderboard functionality will 
 - Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
 - Users can submit score predictions for fixtures.
 - Prediction records store timestamps showing when predictions were created and last updated.
+- Predictions are automatically locked once the fixture kickoff time has passed to ensure fairness.
 
 ---
 
