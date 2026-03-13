@@ -1,19 +1,16 @@
-{% extends "predictor/base.html" %}
-
-{% block content %}
+{% extends "predictor/base.html" %} {% block content %}
 <div class="container mt-4">
-    <h1>Championship Fixtures</h1>
+  <h1>Championship Fixtures</h1>
 
-    <ul>
-        {% for fixture in fixtures %}
-            <li>
-                MW{{ fixture.matchweek }} -
-                {{ fixture.home_team }} vs {{ fixture.away_team }}
-                ({{ fixture.kickoff_datetime }})
-            </li>
-        {% empty %}
-            <li>No fixtures available.</li>
-        {% endfor %}
-    </ul>
+  <ul>
+    {% for fixture in fixtures %}
+    <li>
+      <a href="{% url 'fixture_detail' fixture.id %}"> MW{{ fixture.matchweek }} - {{ fixture.home_team }} vs {{ fixture.away_team }} </a>
+      ({{ fixture.kickoff_datetime }})
+    </li>
+    {% empty %}
+    <li>No fixtures available.</li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}

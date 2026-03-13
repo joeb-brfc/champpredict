@@ -1,0 +1,21 @@
+{% extends "predictor/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1>
+        {{ fixture.home_team }} vs {{ fixture.away_team }}
+    </h1>
+
+    <p>
+        Matchweek {{ fixture.matchweek }}
+    </p>
+
+    <p>
+        Kickoff: {{ fixture.kickoff_datetime }}
+    </p>
+
+</div>
+
+{% endblock %}
