@@ -129,3 +129,26 @@ class Prediction(models.Model):
     # Exact score = 3 points
         if predicted_home == actual_home and predicted_away == actual_away:
             return 3    
+        
+        actual_difference = actual_home - actual_away
+        predicted_difference = predicted_home - predicted_away
+
+        if actual_difference > 0:
+            actual_outcome = "home_win"
+        elif actual_difference < 0:
+            actual_outcome = "away_win"
+        else:
+            actual_outcome = "draw"
+
+        if predicted_difference > 0:
+            predicted_outcome = "home_win"
+        elif predicted_difference < 0:
+            predicted_outcome = "away_win"
+        else:
+            predicted_outcome = "draw"
+
+    # Correct outcome
+        if actual_outcome == predicted_outcome:
+            return 1
+
+        return 0

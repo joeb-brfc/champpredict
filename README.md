@@ -89,7 +89,9 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 This project is currently under development as part of the Level 5 Diploma in Web Application Development.
 
-Core features such as fixtures, predictions, and leaderboard functionality will be implemented during development.
+Core backend functionality including fixture modelling, prediction logic and points calculation has been implemented. 
+
+The next development milestone focuses on building front-end pages allowing users to view fixtures, submit predictions and track their performance via the leaderboard.
 
 ---
 
@@ -141,14 +143,20 @@ The application uses a relational database structure with the following core mod
 - Result – stores the final score of a fixture.
 - Prediction – stores a user’s predicted score for a fixture.
 
-Relationships:
+### Relationships
 
-User → Prediction → Fixture → Result  
-Team → Fixture
+- A **User** can create multiple **Predictions**
+- Each **Prediction** belongs to one **Fixture**
+- Each **Fixture** has one **Result**
+- Each **Fixture** references two **Teams** (home and away)
+
+This relational structure ensures fixtures and predictions remain consistent and prevents duplicated team data.
 
 ---
 
 ## 🧪 Testing
+
+### Unit Testing
 
 - Tested prediction points calculation with an exact score match and confirmed the method returned 3 points.
 - Tested prediction points calculation with a correct result but incorrect score and confirmed the method returned 1 point.
