@@ -20,6 +20,8 @@ def fixture_list(request):
 def fixture_detail(request, fixture_id):
     fixture = get_object_or_404(Fixture, id=fixture_id)
 
+    form = PredictionForm()
+
     context = {
         "fixture": fixture
     }
