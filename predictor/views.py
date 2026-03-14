@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Fixture
+from .forms import PredictionForm
+
 
 # Create your views here.
 def home(request):
