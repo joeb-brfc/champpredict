@@ -108,6 +108,14 @@ The next development milestone focuses on building front-end pages allowing user
 - Predictions are automatically locked once the fixture kickoff time has passed to ensure fairness.
 
 ---
+## Permissions
+
+- Visitors can browse fixtures and view leaderboard information.
+- Registered users must be logged in to create and manage predictions.
+- Administrators can manage teams, fixtures and results through the Django admin panel.
+
+
+---
 
 ## 📂 Planned Features
 
