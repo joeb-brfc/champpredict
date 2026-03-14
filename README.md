@@ -107,13 +107,6 @@ The next development milestone focuses on building front-end pages allowing user
 - Prediction records store timestamps showing when predictions were created and last updated.
 - Predictions are automatically locked once the fixture kickoff time has passed to ensure fairness.
 
----
-## Permissions
-
-- Visitors can browse fixtures and view leaderboard information.
-- Registered users must be logged in to create and manage predictions.
-- Administrators can manage teams, fixtures and results through the Django admin panel.
-
 
 ---
 
@@ -150,6 +143,13 @@ The application uses a relational database structure with the following core mod
 - Fixture – represents a scheduled match between two teams.
 - Result – stores the final score of a fixture.
 - Prediction – stores a user’s predicted score for a fixture.
+
+---
+## 🔐 Permissions
+
+- Visitors can browse fixtures and view leaderboard information.
+- Registered users must be logged in to create and manage predictions.
+- Administrators can manage teams, fixtures and results through the Django admin panel.
 
 ### Relationships
 
