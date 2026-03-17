@@ -1,21 +1,27 @@
-{% extends "predictor/base.html" %}
-
-{% block content %}
+{% extends "predictor/base.html" %} {% block content %}
 
 <div class="container mt-4">
+  <h1>{{ fixture.home_team }} vs {{ fixture.away_team }}</h1>
 
-    <h1>
-        {{ fixture.home_team }} vs {{ fixture.away_team }}
-    </h1>
+  <p>Matchweek {{ fixture.matchweek }}</p>
 
-    <p>
-        Matchweek {{ fixture.matchweek }}
-    </p>
+  <p>Kickoff: {{ fixture.kickoff_datetime }}</p>
 
-    <p>
-        Kickoff: {{ fixture.kickoff_datetime }}
-    </p>
+  {% if user.is_authenticated %}
 
+  <h3>Submit Prediction</h3>
+
+  <form method="POST">
+    {% csrf_token %} {{ form.as_p }}
+
+    <button type="submit">Submit Prediction</button>
+  </form>
+
+  {% else %}
+
+  <p>You must be logged in to submit a prediction.</p>
+
+  {% endif %}
 </div>
 
 {% endblock %}
