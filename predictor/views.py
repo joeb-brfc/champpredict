@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Fixture, Prediction
 from .forms import PredictionForm
 
-
+ 
 # Home page view
 # This simply renders the homepage template.
 def home(request):
