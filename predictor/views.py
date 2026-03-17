@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 from .models import Fixture, Prediction
 from .forms import PredictionForm
 
@@ -70,3 +71,57 @@ def fixture_detail(request, fixture_id):
 
     # Render the fixture detail page
     return render(request, "predictor/fixture_detail.html", context)
+
+# Leaderboard view
+# Calculates total prediction points for each user and displays them in ranking order
+def leaderboard(request):
+
+    # Retrieve all registered users from the database
+    users = User.objects.all()
+
+    # This list will store the leaderboard results
+    leaderboard_data = []
+
+    # Loop through each user to calculate their total points
+    for user in users:
+
+        # Get all predictions made by this user
+        predictions = Prediction.objects.filter(user=user)
+
+        # Track the total points for this user
+        total_points = 0
+
+        # Loop through each prediction and calculate the score
+        for prediction in predictions:
+
+            # Use the calculate_points() method from the Prediction model
+            points = prediction.calculate_points()
+
+            # If the fixture has a result, points will be returned
+            # If not, calculate_points() returns None
+            if points is not None:
+                total_points += points
+
+        # Add the user and their total score to the leaderboard list
+        leaderboard_data.append({
+            "user": user,
+            "total_points": total_points,
+        })
+
+        # Sort leaderboard by total_points in descending order
+        # Uses Python's built-in sorted() function with a lambda key
+        # Reference: Python documentation - https://docs.python.org/3/library/functions.html#sorted
+        leaderboard_data = sorted(
+            leaderboard_data,
+            key=lambda entry: entry["total_points"],
+            reverse=True
+        )
+
+
+    # Send the leaderboard data to the template
+    context = {
+        "leaderboard_data": leaderboard_data
+    }
+
+    # Render the leaderboard page
+    return render(request, "predictor/leaderboard.html", context)
