@@ -1,0 +1,48 @@
+{% extends "predictor/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h1>My Predictions</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fixture</th>
+        <th>My Prediction</th>
+        <th>Result</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prediction in predictions %}
+      <tr>
+        <td>{{ prediction.fixture.home_team }} vs {{ prediction.fixture.away_team }}</td>
+        <td>{{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}</td>
+        <td>
+          {% if prediction.fixture.result %}
+            {{ prediction.fixture.result.home_goals }} - {{ prediction.fixture.result.away_goals }}
+          {% else %}
+            Not played yet
+          {% endif %}
+        </td>
+        <td>
+          {% with points=prediction.calculate_points %}
+            {% if points is not None %}
+              {{ points }}
+            {% else %}
+              Pending
+            {% endif %}
+          {% endwith %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">You have not made any predictions yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %} 
