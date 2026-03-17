@@ -11,13 +11,16 @@
 
   <h3>Submit Prediction</h3>
 
+  {% if fixture.is_locked %}
+  <p>Predictions are locked because the match has kicked off.</p>
+  {% else %}
+
   <form method="POST">
     {% csrf_token %} {{ form.as_p }}
-
     <button type="submit">Submit Prediction</button>
   </form>
 
-  {% else %}
+  {% endif %} {% else %}
 
   <p>You must be logged in to submit a prediction.</p>
 
