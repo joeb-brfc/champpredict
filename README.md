@@ -98,8 +98,9 @@ The application now supports:
 - viewing fixture details
 - submitting predictions
 - updating predictions before kickoff
+- viewing a leaderboard ranking users by prediction points
 
-The next development milestone focuses on implementing the **leaderboard system and user prediction overview pages**.
+The next development milestone focuses on implementing a **“My Predictions” page and improving the user interface**.
 
 ---
 
@@ -143,6 +144,19 @@ The next development milestone focuses on implementing the **leaderboard system 
 5. Submitting the form updates the existing prediction.
 6. Once kickoff time has passed, predictions become locked and cannot be modified.
 
+### Prediction System
+
+- Registered users can submit score predictions for fixtures.
+- Each user can submit **one prediction per fixture**.
+- Users can **edit their prediction before kickoff**.
+- Existing predictions are automatically loaded into the form when revisiting a fixture.
+- Predictions are saved with timestamps showing when they were created and last updated.
+- Predictions are automatically **locked once kickoff time has passed** to ensure fairness.
+- Points are awarded based on prediction accuracy:
+  - **3 points** for an exact score prediction
+  - **1 point** for a correct match outcome
+  - **0 points** for an incorrect prediction
+
 ### Data Validation
 
 The application includes several validation rules to ensure data consistency:
@@ -151,6 +165,13 @@ The application includes several validation rules to ensure data consistency:
 - Each user can only submit one prediction per fixture.
 - Predictions cannot be modified once the fixture kickoff time has passed.
 - Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
+
+### Leaderboard
+
+- A leaderboard page ranks users based on the total points earned from their predictions.
+- Points are calculated using the `calculate_points()` method in the Prediction model.
+- Only predictions for fixtures with recorded results contribute to leaderboard scores.
+- Users are displayed in descending order based on total points.
 
 
 ---
@@ -183,6 +204,12 @@ Displays all upcoming fixtures organised by kickoff time.
 ### Fixture Detail
 
 Shows match information and allows logged-in users to submit predictions.
+
+*(Screenshot to be added)*
+
+### Leaderboard
+
+Displays users ranked by the total points earned from their predictions.
 
 *(Screenshot to be added)*
 
