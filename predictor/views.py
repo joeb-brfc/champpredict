@@ -42,7 +42,7 @@ def fixture_detail(request, fixture_id):
         ).first()
 
     # If the form is submitted
-    if request.method == "POST":
+    if request.method == "POST" and not fixture.is_locked():
         # Create a blank prediction form
         form = PredictionForm(request.POST, instance=prediction)
 
