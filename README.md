@@ -101,7 +101,7 @@ The application now supports:
 - viewing a leaderboard ranking users by prediction points
 - viewing a personal **My Predictions** page showing submitted predictions and earned points
 
-The next development milestone focuses on **finalising backend administration tools, expanding fixture data and improving the user interface**.
+The next development milestone focuses on improving the user interface and adding additional gameplay features such as prediction statistics and private leagues.
 
 ---
 
@@ -116,14 +116,12 @@ The next development milestone focuses on **finalising backend administration to
 - Validation prevents the same team being selected as both the home and away team.
 - Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
 
-### Prediction System
+### Championship Dataset
 
-- Registered users can submit score predictions for fixtures.
-- Each user can submit **one prediction per fixture**.
-- Users can **edit their prediction before kickoff**.
-- Existing predictions are automatically loaded into the form when revisiting a fixture.
-- Predictions are saved with timestamps showing when they were created and last updated.
-- Predictions are automatically **locked once kickoff time has passed** to ensure fairness.
+The database currently contains the full set of English Championship teams.
+
+Fixtures are organised by season and matchweek to reflect a realistic football schedule.  
+This allows predictions and leaderboard scoring to operate using real-world match scenarios.
 
 ### Fixture Pages
 
@@ -206,12 +204,9 @@ The admin interface allows the application to operate without requiring manual d
 
 - Prediction statistics and insights
 - Private prediction leagues for groups of users
-- Improved UI styling and responsive layout enhancements
-- Admin tools for managing full Championship fixture schedules
-- Prediction statistics and insights
-- Private prediction leagues for groups of users
 - Email confirmation receipts for submitted predictions
 - Improved UI styling and responsive layout enhancements
+- Admin tools for managing full Championship fixture schedules
 
 ---
 
@@ -358,11 +353,9 @@ _To be documented during development._
 
 ## 🙏 Credits
 
-## 🙏 Credits
+Leaderboard ranking logic uses Python’s built-in `sorted()` function with a lambda expression to order users by total prediction points.
 
-Leaderboard ranking logic uses Python's built-in `sorted()` function with a lambda expression to order users by total prediction points.
-
-Python documentation:
+Python documentation reference:  
 https://docs.python.org/3/library/functions.html#sorted
 
 ---
