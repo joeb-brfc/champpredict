@@ -19,6 +19,7 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 - [UX Design](#-ux-design)
 - [Wireframes](#-wireframes)
 - [Database Schema](#-database-schema)
+- [Permissions](#permissions)
 - [Testing](#-testing)
 - [Deployment](#-deployment)
 - [Security](#-security)
