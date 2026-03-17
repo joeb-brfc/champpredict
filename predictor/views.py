@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Fixture
 from .forms import PredictionForm
 
@@ -33,7 +33,6 @@ def fixture_detail(request, fixture_id):
 
     # If the form is submitted
     if request.method == "POST":
-        form = PredictionForm(request.POST)
         # Create a blank prediction form
         form = PredictionForm(request.POST)
 
@@ -47,6 +46,7 @@ def fixture_detail(request, fixture_id):
             prediction.fixture = fixture
 
             prediction.save()
+            return redirect("fixture_detail", fixture_id=fixture.id)
 
     else:
         # display blank form
