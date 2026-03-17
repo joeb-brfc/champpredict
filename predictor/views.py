@@ -34,12 +34,17 @@ def fixture_detail(request, fixture_id):
     fixture = get_object_or_404(Fixture, id=fixture_id)
 
     prediction = None
+    user_points = None
     # If the user is logged in, try to get their existing prediction for this fixture
     if request.user.is_authenticated:
         prediction = Prediction.objects.filter(
             user=request.user,
             fixture=fixture
         ).first()
+
+        # If the user has already predicted, calculate points if a result exists
+        if prediction:
+            user_points = prediction.calculate_points()
 
     # If the form is submitted
     if request.method == "POST" and not fixture.is_locked():
@@ -68,6 +73,7 @@ def fixture_detail(request, fixture_id):
         "fixture": fixture,
         "form": form,
         "prediction": prediction,
+         "user_points": user_points,
     }
 
     # Render the fixture detail page
