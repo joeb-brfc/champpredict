@@ -148,10 +148,10 @@ class Prediction(models.Model):
 
     def clean(self):
         # Prevent predictions being created or changed after kickoff
-        if self.fixture and self.fixture.is_locked():
-            raise ValidationError(
-                "Predictions cannot be created or modified after kickoff."
-            )
+            if self.fixture_id and self.fixture.is_locked():
+                raise ValidationError(
+                    "Predictions cannot be created or modified after kickoff."
+                )
 
     def calculate_points(self):
         # If the fixture has no result yet, points cannot be calculated
