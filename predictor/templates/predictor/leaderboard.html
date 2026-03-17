@@ -1,0 +1,32 @@
+{% extends "predictor/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h1>Leaderboard</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>User</th>
+        <th>Total Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in leaderboard_data %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ entry.user.username }}</td>
+        <td>{{ entry.total_points }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3">No leaderboard data available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
