@@ -115,15 +115,14 @@ def leaderboard(request):
             "total_points": total_points,
         })
 
-        # Sort leaderboard by total_points in descending order
-        # Uses Python's built-in sorted() function with a lambda key
-        # Reference: Python documentation - https://docs.python.org/3/library/functions.html#sorted
-        leaderboard_data = sorted(
-            leaderboard_data,
-            key=lambda entry: entry["total_points"],
-            reverse=True
-        )
-
+    # Sort leaderboard by total_points in descending order
+    # Uses Python's built-in sorted() function with a lambda key
+    # Reference: Python documentation - https://docs.python.org/3/library/functions.html#sorted
+    leaderboard_data = sorted(
+        leaderboard_data,
+        key=lambda entry: entry["total_points"],
+        reverse=True
+    )
 
     # Send the leaderboard data to the template
     context = {

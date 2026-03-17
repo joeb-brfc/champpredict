@@ -13,35 +13,51 @@
   <!-- Display the kickoff date and time -->
   <p>Kickoff: {{ fixture.kickoff_datetime }}</p>
 
-
   <!-- Display the result if one exists -->
   <!-- The Result model is linked to Fixture using a OneToOne relationship -->
   {% if fixture.result %}
-
     <p>
       <strong>Result:</strong>
       {{ fixture.result.home_goals }} - {{ fixture.result.away_goals }}
     </p>
-
   {% else %}
-
     <!-- If no result exists yet -->
     <p><strong>Result:</strong> Not played yet</p>
-
   {% endif %}
 
-
-  <!-- Only logged-in users are allowed to submit predictions -->
+  <!-- Only logged-in users are allowed to view their prediction and submit or update one -->
   {% if user.is_authenticated %}
 
-    <h3>Submit Prediction</h3>
+    <!-- If the user has already made a prediction, display it -->
+    {% if prediction %}
+      <p>
+        <strong>Your prediction:</strong>
+        {{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}
+      </p>
+
+      <p>
+        <strong>Points earned:</strong>
+        {% if user_points is not None %}
+          {{ user_points }}
+        {% else %}
+          Pending
+        {% endif %}
+      </p>
+    {% endif %}
+
+    <!-- Change heading depending on whether user is creating or updating a prediction -->
+    <h3>
+      {% if prediction %}
+        Update Prediction
+      {% else %}
+        Submit Prediction
+      {% endif %}
+    </h3>
 
     <!-- Prevent predictions after kickoff -->
     <!-- fixture.is_locked is a method in the Fixture model -->
     {% if fixture.is_locked %}
-
       <p>Predictions are locked because the match has kicked off.</p>
-
     {% else %}
 
       <!-- Prediction submission form -->
@@ -54,7 +70,7 @@
         {{ form.as_p }}
 
         <!-- Submit button -->
-        <button type="submit">Submit Prediction</button>
+        <button type="submit">Save Prediction</button>
 
       </form>
 
