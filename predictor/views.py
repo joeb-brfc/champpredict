@@ -31,10 +31,18 @@ def fixture_detail(request, fixture_id):
     # Get the specific fixture by ID
     fixture = get_object_or_404(Fixture, id=fixture_id)
 
+    prediction = None
+    # If the user is logged in, try to get their existing prediction for this fixture
+    if request.user.is_authenticated:
+        prediction = Prediction.objects.filter(
+            user=request.user,
+            fixture=fixture
+        ).first()
+
     # If the form is submitted
     if request.method == "POST":
         # Create a blank prediction form
-        form = PredictionForm(request.POST)
+        form = PredictionForm(request.POST, instance=prediction)
 
         if form.is_valid():
             prediction = form.save(commit=False)
@@ -50,13 +58,14 @@ def fixture_detail(request, fixture_id):
 
     else:
         # display blank form
-        form = PredictionForm()
+        form = PredictionForm(instance=prediction)
         
 
     # Data passed to the template
     context = {
         "fixture": fixture,
-        "form": form
+        "form": form,
+        "prediction": prediction,
     }
 
     # Render the fixture detail page
