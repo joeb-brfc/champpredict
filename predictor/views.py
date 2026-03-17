@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Fixture
+from .models import Fixture, Prediction
 from .forms import PredictionForm
 
 
