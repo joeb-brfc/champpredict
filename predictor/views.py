@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from .models import Fixture, Prediction
 from .forms import PredictionForm
+from django.contrib.auth.decorators import login_required
 
  
 # Home page view
@@ -125,3 +126,13 @@ def leaderboard(request):
 
     # Render the leaderboard page
     return render(request, "predictor/leaderboard.html", context)
+
+@login_required
+def my_predictions(request):
+    predictions = Prediction.objects.filter(user=request.user)
+
+    context = {
+        "predictions": predictions
+    }
+
+    return render(request, "predictor/my_predictions.html", context)
