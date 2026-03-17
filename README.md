@@ -94,13 +94,14 @@ Core backend functionality including fixture modelling, prediction logic and poi
 
 The application now supports:
 
-- browsing fixtures
+- browsing Championship fixtures
 - viewing fixture details
-- submitting predictions
+- submitting score predictions
 - updating predictions before kickoff
 - viewing a leaderboard ranking users by prediction points
+- viewing a personal **My Predictions** page showing submitted predictions and earned points
 
-The next development milestone focuses on implementing a **“My Predictions” page and improving the user interface**.
+The next development milestone focuses on **finalising backend administration tools, expanding fixture data and improving the user interface**.
 
 ---
 
@@ -173,13 +174,40 @@ The application includes several validation rules to ensure data consistency:
 - Only predictions for fixtures with recorded results contribute to leaderboard scores.
 - Users are displayed in descending order based on total points.
 
+### My Predictions
+
+- Registered users can view a dedicated **My Predictions** page.
+- This page displays all predictions submitted by the logged-in user.
+- Each prediction shows:
+  - the fixture
+  - the predicted score
+  - the actual result (if available)
+  - the points earned
+- Predictions for fixtures without results are marked as **Pending**.
+
+### Admin Management
+
+Administrators manage the core data of the application through the Django admin panel.
+
+Administrators can:
+
+- add Championship teams
+- create fixtures between teams
+- organise fixtures by matchweek
+- record final match results
+- review submitted user predictions
+
+The admin interface allows the application to operate without requiring manual database changes.
+
 
 ---
 
 ## 📂 Planned Features
 
-- Leaderboard displaying user scores
-- “My Predictions” page allowing users to review their predictions
+- Prediction statistics and insights
+- Private prediction leagues for groups of users
+- Improved UI styling and responsive layout enhancements
+- Admin tools for managing full Championship fixture schedules
 - Prediction statistics and insights
 - Private prediction leagues for groups of users
 - Email confirmation receipts for submitted predictions
@@ -210,6 +238,12 @@ Shows match information and allows logged-in users to submit predictions.
 ### Leaderboard
 
 Displays users ranked by the total points earned from their predictions.
+
+*(Screenshot to be added)*
+
+### My Predictions
+
+Displays all predictions submitted by the logged-in user along with results and points earned.
 
 *(Screenshot to be added)*
 
@@ -262,6 +296,12 @@ This relational structure ensures fixtures and predictions remain consistent and
 - Confirmed that users cannot create multiple predictions for the same fixture.
 - Confirmed that existing predictions are automatically loaded into the form.
 - Verified that submitting the form again updates the existing prediction instead of creating a duplicate.
+
+### Leaderboard Testing
+
+- Verified that users appear on the leaderboard after submitting predictions.
+- Confirmed that leaderboard rankings update based on total points earned.
+- Confirmed that predictions without results do not contribute to leaderboard scores.
 
 ---
 
@@ -318,7 +358,12 @@ _To be documented during development._
 
 ## 🙏 Credits
 
-_To be added during development._
+## 🙏 Credits
+
+Leaderboard ranking logic uses Python's built-in `sorted()` function with a lambda expression to order users by total prediction points.
+
+Python documentation:
+https://docs.python.org/3/library/functions.html#sorted
 
 ---
 
