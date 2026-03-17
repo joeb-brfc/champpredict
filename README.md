@@ -90,37 +90,79 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 This project is currently under development as part of the Level 5 Diploma in Web Application Development.
 
-Core backend functionality including fixture modelling, prediction logic and points calculation has been implemented. 
+Core backend functionality including fixture modelling, prediction logic and points calculation has been implemented.
 
-The next development milestone focuses on building front-end pages allowing users to view fixtures, submit predictions and track their performance via the leaderboard.
+The application now supports:
+
+- browsing fixtures
+- viewing fixture details
+- submitting predictions
+- updating predictions before kickoff
+
+The next development milestone focuses on implementing the **leaderboard system and user prediction overview pages**.
 
 ---
 
 ## ⭐ Features
 
+### Fixture Management
+
 - Teams are stored once in the database and reused across fixtures.
 - Fixtures link two teams together using relational database relationships.
 - Fixtures are organised by season and matchweek.
-- Validation prevents the same team being selected as both the home and away team in a fixture.
 - Fixtures are automatically ordered by kickoff time.
+- Validation prevents the same team being selected as both the home and away team.
 - Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
-- Users can submit score predictions for fixtures.
-- Prediction records store timestamps showing when predictions were created and last updated.
-- Predictions are automatically locked once the fixture kickoff time has passed to ensure fairness.
+
+### Prediction System
+
+- Registered users can submit score predictions for fixtures.
+- Each user can submit **one prediction per fixture**.
+- Users can **edit their prediction before kickoff**.
+- Existing predictions are automatically loaded into the form when revisiting a fixture.
+- Predictions are saved with timestamps showing when they were created and last updated.
+- Predictions are automatically **locked once kickoff time has passed** to ensure fairness.
+
+### Fixture Pages
+
+- Users can browse a list of upcoming fixtures.
+- Clicking a fixture opens a **fixture detail page**.
+- The fixture detail page displays match information and allows logged-in users to submit predictions.
+
+### Authentication
+
+- Visitors can browse fixtures without logging in.
+- Only authenticated users can submit or edit predictions.
+
+## 🔄 Prediction Workflow
+
+1. A visitor browses the fixture list.
+2. Selecting a fixture opens the fixture detail page.
+3. Logged-in users can submit a predicted score.
+4. If a prediction already exists, the form automatically loads the saved prediction.
+5. Submitting the form updates the existing prediction.
+6. Once kickoff time has passed, predictions become locked and cannot be modified.
+
+### Data Validation
+
+The application includes several validation rules to ensure data consistency:
+
+- A fixture cannot be created where the home and away teams are the same.
+- Each user can only submit one prediction per fixture.
+- Predictions cannot be modified once the fixture kickoff time has passed.
+- Database constraints prevent duplicate fixtures for the same season, matchweek and teams.
 
 
 ---
 
 ## 📂 Planned Features
 
-- User authentication (signup/login)
-- Fixture list organised by matchweek
-- Fixture detail pages
-- Prediction creation and editing
-- Prediction locking after kickoff
 - Leaderboard displaying user scores
-- Admin panel for managing teams, fixtures and results
-- Prediction confirmation screen allowing users to review their selections before final submission.
+- “My Predictions” page allowing users to review their predictions
+- Prediction statistics and insights
+- Private prediction leagues for groups of users
+- Email confirmation receipts for submitted predictions
+- Improved UI styling and responsive layout enhancements
 
 ---
 
@@ -129,6 +171,20 @@ The next development milestone focuses on building front-end pages allowing user
 _To be completed during development._
 
 ---
+
+## 📸 Screenshots
+
+### Fixture List
+
+Displays all upcoming fixtures organised by kickoff time.
+
+*(Screenshot to be added)*
+
+### Fixture Detail
+
+Shows match information and allows logged-in users to submit predictions.
+
+*(Screenshot to be added)*
 
 ## 🧩 Wireframes
 
@@ -145,13 +201,6 @@ The application uses a relational database structure with the following core mod
 - Result – stores the final score of a fixture.
 - Prediction – stores a user’s predicted score for a fixture.
 
----
-## 🔐 Permissions
-
-- Visitors can browse fixtures and view leaderboard information.
-- Registered users must be logged in to create and manage predictions.
-- Administrators can manage teams, fixtures and results through the Django admin panel.
-
 ### Relationships
 
 - A **User** can create multiple **Predictions**
@@ -163,6 +212,14 @@ This relational structure ensures fixtures and predictions remain consistent and
 
 ---
 
+## 🔐 Permissions
+
+- Visitors can browse fixtures and view leaderboard information.
+- Registered users must be logged in to create and manage predictions.
+- Administrators can manage teams, fixtures and results through the Django admin panel.
+
+---
+
 ## 🧪 Testing
 
 ### Unit Testing
@@ -171,6 +228,13 @@ This relational structure ensures fixtures and predictions remain consistent and
 - Tested prediction points calculation with a correct result but incorrect score and confirmed the method returned 1 point.
 - Tested prediction points calculation with an incorrect result and confirmed the method returned 0 points.
 - Tested prediction points calculation where no result existed and confirmed the method returned None.
+
+### Prediction Form Testing
+
+- Verified that logged-in users can submit predictions through the fixture detail page.
+- Confirmed that users cannot create multiple predictions for the same fixture.
+- Confirmed that existing predictions are automatically loaded into the form.
+- Verified that submitting the form again updates the existing prediction instead of creating a duplicate.
 
 ---
 
