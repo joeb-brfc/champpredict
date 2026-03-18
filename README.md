@@ -370,6 +370,13 @@ Leaderboard ranking logic uses Python’s built-in `sorted()` function with a la
 Python documentation reference:  
 https://docs.python.org/3/library/functions.html#sorted
 
+### Form Validation
+
+Prediction form validation follows standard Django `ModelForm` validation patterns to ensure that both home and away scores are entered together when submitting predictions.
+
+Reference:  
+https://docs.djangoproject.com/en/stable/ref/forms/validation/
+
 ---
 
 ## 🔮 Future Features
