@@ -296,7 +296,16 @@ This relational structure ensures fixtures and predictions remain consistent and
 
 - Verified that users appear on the leaderboard after submitting predictions.
 - Confirmed that leaderboard rankings update based on total points earned.
-- Confirmed that predictions without results do not contribute to leaderboard scores.
+- Confirmed that predictions without results do not contribute to leaderboard scores.##
+
+### Deployment Testing
+
+- After deploying new code to Heroku, the application initially returned a **500 server error** on fixture pages because the production database schema had not yet been updated. This was resolved by running:
+  `heroku run python manage.py migrate`
+
+- When moving local fixture data to Heroku using `dumpdata` and `loaddata`, an encoding issue occurred because the exported JSON file was not saved in the correct UTF-8 format. This was resolved by resaving the fixture file as **UTF-8 without BOM** before loading it into Heroku.
+
+- This highlighted that the **local database and Heroku production database are separate**, so data must either be entered manually in production or transferred using fixture files.
 
 ---
 
