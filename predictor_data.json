@@ -1,0 +1,314 @@
+﻿[
+{
+  "model": "predictor.team",
+  "pk": 1,
+  "fields": {
+    "name": "Blackburn Rovers"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 2,
+  "fields": {
+    "name": "Leicester City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 3,
+  "fields": {
+    "name": "Derby County"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 4,
+  "fields": {
+    "name": "Coventry City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 5,
+  "fields": {
+    "name": "Ipswich Town"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 6,
+  "fields": {
+    "name": "Hull City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 7,
+  "fields": {
+    "name": "Swansea City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 8,
+  "fields": {
+    "name": "Bristol City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 9,
+  "fields": {
+    "name": "Charlton Athletic"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 10,
+  "fields": {
+    "name": "Middlesbrough"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 11,
+  "fields": {
+    "name": "Millwall"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 12,
+  "fields": {
+    "name": "Norwich City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 13,
+  "fields": {
+    "name": "Oxford United"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 14,
+  "fields": {
+    "name": "Portsmouth"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 15,
+  "fields": {
+    "name": "Preston North End"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 16,
+  "fields": {
+    "name": "Queens Park Rangers"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 17,
+  "fields": {
+    "name": "Sheffield Wednesday"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 18,
+  "fields": {
+    "name": "Sheffield United"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 19,
+  "fields": {
+    "name": "Southampton"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 20,
+  "fields": {
+    "name": "Stoke City"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 21,
+  "fields": {
+    "name": "Watford"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 22,
+  "fields": {
+    "name": "West Bromwich Albion"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 23,
+  "fields": {
+    "name": "Wrexham"
+  }
+},
+{
+  "model": "predictor.team",
+  "pk": 24,
+  "fields": {
+    "name": "Birmingham City"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 8,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 1,
+    "away_team": 10,
+    "kickoff_datetime": "2026-03-21T12:30:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 10,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 3,
+    "away_team": 24,
+    "kickoff_datetime": "2026-03-21T12:30:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 11,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 5,
+    "away_team": 11,
+    "kickoff_datetime": "2026-03-21T12:30:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 12,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 8,
+    "away_team": 22,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 13,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 9,
+    "away_team": 12,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 14,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 6,
+    "away_team": 17,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 15,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 16,
+    "away_team": 14,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 16,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 18,
+    "away_team": 23,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 17,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 19,
+    "away_team": 13,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 18,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 21,
+    "away_team": 2,
+    "kickoff_datetime": "2026-03-21T15:00:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 19,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 7,
+    "away_team": 4,
+    "kickoff_datetime": "2026-03-21T17:15:00Z",
+    "status": "upcoming"
+  }
+},
+{
+  "model": "predictor.fixture",
+  "pk": 20,
+  "fields": {
+    "season": "2025/26",
+    "matchweek": 39,
+    "home_team": 15,
+    "away_team": 20,
+    "kickoff_datetime": "2026-03-20T20:00:00Z",
+    "status": "upcoming"
+  }
+}
+]
