@@ -156,7 +156,7 @@ def my_predictions(request):
     return render(request, "predictor/my_predictions.html", context)
 
 # Matchweek prediction view
-# Displays all fixtures in a specific matchweek and loads prediction forms
+# Displays fixtures and handles prediction form submission
 @login_required
 def matchweek_predictions(request, matchweek):
 
@@ -165,33 +165,60 @@ def matchweek_predictions(request, matchweek):
         matchweek=matchweek
     ).order_by("kickoff_datetime")
 
-    # This list will store each fixture and its associated prediction form
+    # List storing fixtures and their forms
     prediction_forms = []
 
-    # Loop through each fixture in the matchweek
-    for fixture in fixtures:
+    # If the user submitted the form
+    if request.method == "POST":
 
-        # Check if the logged-in user already has a prediction for this fixture
-        existing_prediction = Prediction.objects.filter(
-            user=request.user,
-            fixture=fixture
-        ).first()
+        # Track whether all forms are valid
+        all_valid = True
 
-        # Create a prediction form
-        # If a prediction exists, it will preload the saved values
-        form = PredictionForm(
-            instance=existing_prediction,
+        # Loop through fixtures to rebuild each form from submitted data
+        for fixture in fixtures:
 
-            # Prefix ensures each form has unique field names
-            # This prevents form fields from conflicting when multiple forms exist on the page
-            prefix=f"fixture_{fixture.id}"
-        )
+            # Retrieve any existing prediction for this user
+            existing_prediction = Prediction.objects.filter(
+                user=request.user,
+                fixture=fixture
+            ).first()
 
-        # Store fixture and form together
-        prediction_forms.append({
-            "fixture": fixture,
-            "form": form,
-        })
+            # Bind the submitted POST data to the form
+            form = PredictionForm(
+                request.POST,
+                instance=existing_prediction,
+                prefix=f"fixture_{fixture.id}"
+            )
+
+            # Store the fixture and form together
+            prediction_forms.append({
+                "fixture": fixture,
+                "form": form,
+            })
+
+            # If any form is invalid, mark the whole submission as invalid
+            if not form.is_valid():
+                all_valid = False
+
+    else:
+
+        # If the request is GET, display empty or prefilled forms
+        for fixture in fixtures:
+
+            existing_prediction = Prediction.objects.filter(
+                user=request.user,
+                fixture=fixture
+            ).first()
+
+            form = PredictionForm(
+                instance=existing_prediction,
+                prefix=f"fixture_{fixture.id}"
+            )
+
+            prediction_forms.append({
+                "fixture": fixture,
+                "form": form,
+            })
 
     # Data passed to the template
     context = {
@@ -199,7 +226,6 @@ def matchweek_predictions(request, matchweek):
         "prediction_forms": prediction_forms,
     }
 
-    # Render the matchweek prediction page
     return render(
         request,
         "predictor/matchweek_predictions.html",
