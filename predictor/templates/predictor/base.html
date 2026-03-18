@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChampPredict</title>
-</head>
-<body>
-    <header>
-        <h1>ChampPredict</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ChampPredict</title>
+    </head>
+    <body>
+        <header>
+            <h1>ChampPredict</h1>
 
-        <!-- Navigation menu for the site -->
-        <nav>
-            <a href="{% url 'home' %}">Home</a> |
-            <a href="{% url 'fixture_list' %}">Fixtures</a> |
-            <a href="{% url 'leaderboard' %}">Leaderboard</a>
-            <a href="{% url 'my_predictions' %}">My Predictions</a>
+            <!-- Navigation menu for the site -->
+            <nav>
+                <a href="{% url 'home' %}">Home</a> |
+                <a href="{% url 'fixture_list' %}">Fixtures</a> |
+                <a href="{% url 'leaderboard' %}">Leaderboard</a>
+                <a href="{% url 'my_predictions' %}">My Predictions</a>
 
-    {% if user.is_authenticated %}
-        | Logged in as {{ user.username }}
-    {% endif %}
-</nav>
+                {% if user.is_authenticated %}
+                | Logged in as {{ user.username }}
+                {% endif %}
+            </nav>
         </nav>
 
     </header>
 
     <main>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% block content %}
         {% endblock %}
     </main>

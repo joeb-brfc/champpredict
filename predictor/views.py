@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Fixture, Prediction
 from .forms import PredictionForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
  
 # Home page view
@@ -35,6 +36,7 @@ def fixture_detail(request, fixture_id):
 
     prediction = None
     user_points = None
+
     # If the user is logged in, try to get their existing prediction for this fixture
     if request.user.is_authenticated:
         prediction = Prediction.objects.filter(
@@ -42,38 +44,49 @@ def fixture_detail(request, fixture_id):
             fixture=fixture
         ).first()
 
+        # Track whether the user already had a prediction before submitting the form
+        existing_prediction = prediction is not None
+
         # If the user has already predicted, calculate points if a result exists
         if prediction:
             user_points = prediction.calculate_points()
+    else:
+        existing_prediction = False
 
     # If the form is submitted
     if request.method == "POST" and not fixture.is_locked():
-        # Create a blank prediction form
+        # Bind form data, using the existing prediction if one already exists
         form = PredictionForm(request.POST, instance=prediction)
 
         if form.is_valid():
             prediction = form.save(commit=False)
 
-            # attach logged-in user
+            # Attach logged-in user
             prediction.user = request.user
 
-            # attach fixture
+            # Attach fixture
             prediction.fixture = fixture
 
             prediction.save()
+
+            # Show a success message depending on whether this was a new prediction or an update
+            if existing_prediction:
+                messages.success(request, "Prediction updated successfully.")
+            else:
+                messages.success(request, "Prediction saved successfully.")
+
             return redirect("fixture_detail", fixture_id=fixture.id)
 
     else:
-        # display blank form
+        # Display blank form or preload existing prediction
         form = PredictionForm(instance=prediction)
-        
 
     # Data passed to the template
     context = {
         "fixture": fixture,
         "form": form,
         "prediction": prediction,
-         "user_points": user_points,
+        "user_points": user_points,
     }
 
     # Render the fixture detail page
