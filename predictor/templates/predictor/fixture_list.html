@@ -1,11 +1,23 @@
-{% extends "predictor/base.html" %} {% block content %}
+{% extends "predictor/base.html" %}
+{% block content %}
+
 <div class="container mt-4">
   <h1>Championship Fixtures</h1>
+
+  {% if fixtures %}
+    <p>
+      <a href="{% url 'matchweek_predictions' fixtures.0.matchweek %}">
+        Predict all Matchweek {{ fixtures.0.matchweek }} games
+      </a>
+    </p>
+  {% endif %}
 
   <ul>
     {% for fixture in fixtures %}
     <li>
-      <a href="{% url 'fixture_detail' fixture.id %}"> MW{{ fixture.matchweek }} - {{ fixture.home_team }} vs {{ fixture.away_team }} </a>
+      <a href="{% url 'fixture_detail' fixture.id %}">
+        MW{{ fixture.matchweek }} - {{ fixture.home_team }} vs {{ fixture.away_team }}
+      </a>
       ({{ fixture.kickoff_datetime }})
     </li>
     {% empty %}
@@ -13,4 +25,5 @@
     {% endfor %}
   </ul>
 </div>
+
 {% endblock %}

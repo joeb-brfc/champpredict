@@ -15,6 +15,7 @@
             <a href="{% url 'fixture_list' %}">Fixtures</a> |
             <a href="{% url 'leaderboard' %}">Leaderboard</a> |
             <a href="{% url 'my_predictions' %}">My Predictions</a>
+            <a href="{% url 'matchweek_predictions' 39 %}">Matchweek Predictions</a>
 
             {% if user.is_authenticated %}
                 | Logged in as {{ user.username }}
