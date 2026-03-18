@@ -18,9 +18,13 @@
                 {{ item.fixture.home_team }} vs {{ item.fixture.away_team }}
             </td>
             <td>
-                {{ item.form.predicted_home_goals }}
-                -
-                {{ item.form.predicted_away_goals }}
+                {% if item.fixture.is_locked %}
+                    Predictions locked
+                {% else %}
+                    {{ item.form.predicted_home_goals }}
+                    -
+                    {{ item.form.predicted_away_goals }}
+                {% endif %}
             </td>
         </tr>
         {% empty %}
