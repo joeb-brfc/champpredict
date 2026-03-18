@@ -140,8 +140,9 @@ This allows predictions and leaderboard scoring to operate using real-world matc
 2. Selecting a fixture opens the fixture detail page.
 3. Logged-in users can submit a predicted score.
 4. If a prediction already exists, the form automatically loads the saved prediction.
-5. Submitting the form updates the existing prediction.
-6. Once kickoff time has passed, predictions become locked and cannot be modified.
+5. Submitting the form saves or updates the user's prediction.
+6. A confirmation message is displayed to inform the user that their prediction has been saved.
+7. Once kickoff time has passed, predictions become locked and cannot be modified.
 
 ### Prediction System
 
@@ -151,6 +152,7 @@ This allows predictions and leaderboard scoring to operate using real-world matc
 - Existing predictions are automatically loaded into the form when revisiting a fixture.
 - Predictions are saved with timestamps showing when they were created and last updated.
 - Predictions are automatically **locked once kickoff time has passed** to ensure fairness.
+- After submitting or updating a prediction, users receive a confirmation message indicating that their prediction has been successfully saved.
 - Points are awarded based on prediction accuracy:
   - **3 points** for an exact score prediction
   - **1 point** for a correct match outcome
@@ -291,6 +293,7 @@ This relational structure ensures fixtures and predictions remain consistent and
 - Confirmed that users cannot create multiple predictions for the same fixture.
 - Confirmed that existing predictions are automatically loaded into the form.
 - Verified that submitting the form again updates the existing prediction instead of creating a duplicate.
+- Confirmed that a success message is displayed when a prediction is saved or updated.
 
 ### Leaderboard Testing
 
