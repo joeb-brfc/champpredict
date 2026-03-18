@@ -100,8 +100,8 @@ The application now supports:
 - updating predictions before kickoff
 - viewing a leaderboard ranking users by prediction points
 - viewing a personal **My Predictions** page showing submitted predictions and earned points
-
-The next development milestone focuses on improving the user interface and adding additional gameplay features such as prediction statistics and private leagues.
+- submitting **bulk predictions for an entire matchweek** from a single page
+- receiving confirmation messages when predictions are created or updated
 
 ---
 
@@ -128,6 +128,23 @@ This allows predictions and leaderboard scoring to operate using real-world matc
 - Users can browse a list of upcoming fixtures.
 - Clicking a fixture opens a **fixture detail page**.
 - The fixture detail page displays match information and allows logged-in users to submit predictions.
+
+### Matchweek Predictions
+
+To improve the user experience, the application allows users to submit predictions for an entire matchweek from a single page.
+
+Instead of navigating into each fixture individually, users can now enter predictions for all fixtures in a matchweek simultaneously.
+
+Key functionality includes:
+
+- A dedicated **Matchweek Predictions** page displaying all fixtures within a selected matchweek.
+- Each fixture contains its own prediction form fields.
+- Existing predictions are automatically preloaded into the form if they already exist.
+- Blank fixtures can be skipped without affecting other predictions.
+- Fixtures that have passed their kickoff time are automatically locked and cannot be edited.
+- A confirmation message is displayed when predictions are successfully saved.
+
+This significantly improves usability compared to submitting predictions fixture-by-fixture.
 
 ### Authentication
 
@@ -198,6 +215,18 @@ Administrators can:
 - review submitted user predictions
 
 The admin interface allows the application to operate without requiring manual database changes.
+
+### User Feedback Messages
+
+The application uses Django's messaging framework to provide feedback when predictions are created or updated.
+
+Users receive confirmation messages such as:
+
+- "Prediction saved successfully."
+- "Prediction updated successfully."
+- "Matchweek predictions saved successfully."
+
+This improves usability by clearly informing users when their actions have been completed successfully.
 
 
 ---
@@ -295,6 +324,15 @@ This relational structure ensures fixtures and predictions remain consistent and
 - Verified that submitting the form again updates the existing prediction instead of creating a duplicate.
 - Confirmed that a success message is displayed when a prediction is saved or updated.
 
+### Matchweek Prediction Testing
+
+- Verified that users can open the Matchweek Predictions page for a selected matchweek.
+- Confirmed that prediction input fields appear for every fixture in the matchweek.
+- Confirmed that existing predictions are automatically loaded into the form.
+- Verified that submitting the form saves multiple predictions simultaneously.
+- Confirmed that fixtures with kickoff times in the past are locked and cannot be modified.
+- Verified that a confirmation message is displayed when matchweek predictions are saved.
+
 ### Leaderboard Testing
 
 - Verified that users appear on the leaderboard after submitting predictions.
@@ -309,6 +347,14 @@ This relational structure ensures fixtures and predictions remain consistent and
 - When moving local fixture data to Heroku using `dumpdata` and `loaddata`, an encoding issue occurred because the exported JSON file was not saved in the correct UTF-8 format. This was resolved by resaving the fixture file as **UTF-8 without BOM** before loading it into Heroku.
 
 - This highlighted that the **local database and Heroku production database are separate**, so data must either be entered manually in production or transferred using fixture files.
+
+### Development vs Production Database
+
+Local development uses a **SQLite database**, while the production application on Heroku uses a **PostgreSQL database**.
+
+Because these environments are separate, predictions created locally do not appear on the live application. Users must submit predictions through the deployed Heroku application for them to be stored in the production database.
+
+This separation allows development changes to be tested locally without affecting live user data.
 
 ---
 
