@@ -154,3 +154,27 @@ def my_predictions(request):
     }
 
     return render(request, "predictor/my_predictions.html", context)
+
+# Matchweek prediction view
+# Displays all fixtures in a specific matchweek so users can submit predictions
+@login_required
+def matchweek_predictions(request, matchweek):
+
+    # Retrieve all fixtures for the selected matchweek
+    # Fixtures are ordered by kickoff time so they appear in chronological order
+    fixtures = Fixture.objects.filter(
+        matchweek=matchweek
+    ).order_by("kickoff_datetime")
+
+    # Data passed to the template
+    context = {
+        "matchweek": matchweek,
+        "fixtures": fixtures,
+    }
+
+    # Render the matchweek prediction page
+    return render(
+        request,
+        "predictor/matchweek_predictions.html",
+        context
+    )
