@@ -156,7 +156,7 @@ def my_predictions(request):
     return render(request, "predictor/my_predictions.html", context)
 
 # Matchweek prediction view
-# Displays fixtures and handles prediction form submission
+# Handles bulk prediction entry for an entire matchweek
 @login_required
 def matchweek_predictions(request, matchweek):
 
@@ -165,44 +165,72 @@ def matchweek_predictions(request, matchweek):
         matchweek=matchweek
     ).order_by("kickoff_datetime")
 
-    # List storing fixtures and their forms
     prediction_forms = []
 
-    # If the user submitted the form
     if request.method == "POST":
 
-        # Track whether all forms are valid
         all_valid = True
 
-        # Loop through fixtures to rebuild each form from submitted data
+        # Rebuild each form using submitted POST data
         for fixture in fixtures:
 
-            # Retrieve any existing prediction for this user
             existing_prediction = Prediction.objects.filter(
                 user=request.user,
                 fixture=fixture
             ).first()
 
-            # Bind the submitted POST data to the form
             form = PredictionForm(
                 request.POST,
                 instance=existing_prediction,
                 prefix=f"fixture_{fixture.id}"
             )
 
-            # Store the fixture and form together
             prediction_forms.append({
                 "fixture": fixture,
                 "form": form,
             })
 
-            # If any form is invalid, mark the whole submission as invalid
             if not form.is_valid():
                 all_valid = False
 
+        # Only save predictions if every form is valid
+        if all_valid:
+
+            for item in prediction_forms:
+
+                fixture = item["fixture"]
+                form = item["form"]
+
+                # Prevent predictions being edited after kickoff
+                if fixture.is_locked():
+                    continue
+
+                # Retrieve the cleaned form data
+                home = form.cleaned_data.get("predicted_home_goals")
+                away = form.cleaned_data.get("predicted_away_goals")
+
+                # Skip fixtures where the user left both fields blank
+                if home is None and away is None:
+                    continue
+
+                # Save prediction
+                prediction = form.save(commit=False)
+
+                # Attach user and fixture before saving
+                prediction.user = request.user
+                prediction.fixture = fixture
+
+                prediction.save()
+
+            # Provide user feedback after saving predictions
+            messages.success(request, "Matchweek predictions saved successfully.")
+
+            # Redirect to avoid form resubmission if the page is refreshed
+            return redirect("matchweek_predictions", matchweek=matchweek)
+
     else:
 
-        # If the request is GET, display empty or prefilled forms
+        # If GET request, display forms for each fixture
         for fixture in fixtures:
 
             existing_prediction = Prediction.objects.filter(
@@ -220,7 +248,6 @@ def matchweek_predictions(request, matchweek):
                 "form": form,
             })
 
-    # Data passed to the template
     context = {
         "matchweek": matchweek,
         "prediction_forms": prediction_forms,
