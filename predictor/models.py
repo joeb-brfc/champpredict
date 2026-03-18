@@ -71,9 +71,28 @@ class Fixture(models.Model):
         return f"MW{self.matchweek} - {self.home_team} vs {self.away_team}"
 
     def clean(self):
-        # Prevent invalid fixtures where the same team is both home and away
+        # Prevent a team being selected as both home and away
         if self.home_team == self.away_team:
             raise ValidationError("A team cannot play itself.")
+
+        # Look for other fixtures in the same season and matchweek
+        # Exclude the current fixture so editing an existing record does not clash with itself
+        existing_fixtures = Fixture.objects.filter(
+            season=self.season,
+            matchweek=self.matchweek
+        ).exclude(pk=self.pk)
+
+        # Check whether either selected team is already used in another fixture
+        for fixture in existing_fixtures:
+            if self.home_team in [fixture.home_team, fixture.away_team]:
+                raise ValidationError(
+                    f"{self.home_team} already has a fixture in matchweek {self.matchweek}."
+            )
+
+        if self.away_team in [fixture.home_team, fixture.away_team]:
+            raise ValidationError(
+                f"{self.away_team} already has a fixture in matchweek {self.matchweek}."
+            )
 
     def is_locked(self):
         # Returns True once kickoff time has passed
