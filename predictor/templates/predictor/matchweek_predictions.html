@@ -3,14 +3,36 @@
 
 <h1>Matchweek {{ matchweek }} Predictions</h1>
 
-<ul>
-    {% for item in prediction_forms %}
-        <li>
-            {{ item.fixture.home_team }} vs {{ item.fixture.away_team }}
-        </li>
-    {% empty %}
-        <li>No fixtures available for this matchweek.</li>
-    {% endfor %}
-</ul>
+<form method="POST">
+    {% csrf_token %}
+
+    <table>
+        <tr>
+            <th>Fixture</th>
+            <th>Prediction</th>
+        </tr>
+
+        {% for item in prediction_forms %}
+        <tr>
+            <td>
+                {{ item.fixture.home_team }} vs {{ item.fixture.away_team }}
+            </td>
+            <td>
+                {{ item.form.predicted_home_goals }}
+                -
+                {{ item.form.predicted_away_goals }}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No fixtures available for this matchweek.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+
+    <button type="submit">Save Predictions</button>
+</form>
 
 {% endblock %}
