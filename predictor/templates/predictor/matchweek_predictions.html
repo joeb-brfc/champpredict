@@ -3,6 +3,14 @@
 
 <h1>Matchweek {{ matchweek }} Predictions</h1>
 
-<p>Bulk prediction page for this matchweek.</p>
+<ul>
+    {% for item in prediction_forms %}
+        <li>
+            {{ item.fixture.home_team }} vs {{ item.fixture.away_team }}
+        </li>
+    {% empty %}
+        <li>No fixtures available for this matchweek.</li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
