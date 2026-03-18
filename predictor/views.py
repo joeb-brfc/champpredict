@@ -156,20 +156,47 @@ def my_predictions(request):
     return render(request, "predictor/my_predictions.html", context)
 
 # Matchweek prediction view
-# Displays all fixtures in a specific matchweek so users can submit predictions
+# Displays all fixtures in a specific matchweek and loads prediction forms
 @login_required
 def matchweek_predictions(request, matchweek):
 
     # Retrieve all fixtures for the selected matchweek
-    # Fixtures are ordered by kickoff time so they appear in chronological order
     fixtures = Fixture.objects.filter(
         matchweek=matchweek
     ).order_by("kickoff_datetime")
 
+    # This list will store each fixture and its associated prediction form
+    prediction_forms = []
+
+    # Loop through each fixture in the matchweek
+    for fixture in fixtures:
+
+        # Check if the logged-in user already has a prediction for this fixture
+        existing_prediction = Prediction.objects.filter(
+            user=request.user,
+            fixture=fixture
+        ).first()
+
+        # Create a prediction form
+        # If a prediction exists, it will preload the saved values
+        form = PredictionForm(
+            instance=existing_prediction,
+
+            # Prefix ensures each form has unique field names
+            # This prevents form fields from conflicting when multiple forms exist on the page
+            prefix=f"fixture_{fixture.id}"
+        )
+
+        # Store fixture and form together
+        prediction_forms.append({
+            "fixture": fixture,
+            "form": form,
+        })
+
     # Data passed to the template
     context = {
         "matchweek": matchweek,
-        "fixtures": fixtures,
+        "prediction_forms": prediction_forms,
     }
 
     # Render the matchweek prediction page
