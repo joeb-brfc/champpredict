@@ -147,13 +147,18 @@ def leaderboard(request):
 
 @login_required
 def my_predictions(request):
-    predictions = Prediction.objects.filter(user=request.user)
 
-    context = {
+    # Fetch all predictions for the logged-in user
+    predictions = Prediction.objects.filter(user=request.user).select_related(
+        "fixture",
+        "fixture__result",
+        "fixture__home_team",
+        "fixture__away_team",
+    ).order_by("fixture__kickoff_datetime")
+
+    return render(request, "predictor/my_predictions.html", {
         "predictions": predictions
-    }
-
-    return render(request, "predictor/my_predictions.html", context)
+    })
 
 # Matchweek prediction view
 # Handles bulk prediction entry for an entire matchweek
