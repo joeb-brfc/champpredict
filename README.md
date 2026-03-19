@@ -384,6 +384,7 @@ This structure keeps the data consistent and avoids duplicating team information
 - Verified that predictions cannot be updated after fixture kickoff.
 - Confirmed that bulk matchweek prediction entry validates incomplete score pairs.
 - Verified that matchweek predictions can be saved for multiple fixtures in a single submission.
+A validation bug was identified in the Fixture.clean() method where one team check was incorrectly placed outside the loop iterating through existing fixtures. This caused an UnboundLocalError when adding fixtures through the admin panel. The issue was resolved by moving both validation checks inside the loop.
 
 ### Deployment Testing
 
