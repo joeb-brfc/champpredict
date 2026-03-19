@@ -395,6 +395,12 @@ A validation bug was identified in the Fixture.clean() method where one team che
 
 - This highlighted that the **local database and Heroku production database are separate**, so data must either be entered manually in production or transferred using fixture files.
 
+- The Django admin interface appeared unstyled in the local development environment, with missing CSS and layout issues. This was caused by the `DEBUG` setting being evaluated as `False`, which prevented Django from serving static files during development.
+
+- The issue was resolved by updating the `DEBUG` setting to default to `True` locally unless explicitly overridden by an environment variable. Additionally, the `STATIC_URL` setting was corrected to include a leading slash (`/static/`), ensuring static file paths were resolved correctly.
+
+- This highlighted the importance of clearly separating development and production configuration, particularly when using environment variables.
+
 ### Development vs Production Database
 
 Local development uses a **SQLite database**, while the production application on Heroku uses a **PostgreSQL database**.
