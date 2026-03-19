@@ -337,7 +337,15 @@ This relational structure ensures fixtures and predictions remain consistent and
 
 - Verified that users appear on the leaderboard after submitting predictions.
 - Confirmed that leaderboard rankings update based on total points earned.
-- Confirmed that predictions without results do not contribute to leaderboard scores.##
+- Confirmed that predictions without results do not contribute to leaderboard scores.
+
+### Validation and Workflow Testing
+
+- Verified that a fixture cannot be created where the home and away team are the same.
+- Confirmed that a team cannot be assigned to more than one fixture in the same matchweek.
+- Verified that predictions cannot be updated after fixture kickoff.
+- Confirmed that bulk matchweek prediction entry validates incomplete score pairs.
+- Verified that matchweek predictions can be saved for multiple fixtures in a single submission.
 
 ### Deployment Testing
 
