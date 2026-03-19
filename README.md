@@ -399,6 +399,22 @@ This separation allows development changes to be tested locally without affectin
 
 ---
 
+## ⚠️ Development Challenges
+
+### Form Handling Challenges
+
+While building the bulk matchweek predictions feature, I initially tried to handle both saving and clearing predictions within the same form. 
+
+This caused issues because the backend could not clearly distinguish which action the user intended, leading to unreliable behaviour.
+
+To resolve this, I separated the functionality into two forms:
+- one for saving predictions
+- one for clearing predictions
+
+This made the request handling much clearer and ensured that each action triggered the correct logic in the view.
+
+---
+
 ## 🚀 Deployment
 
 This application is deployed using **Heroku**.
