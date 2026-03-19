@@ -1,11 +1,14 @@
 {% extends "predictor/base.html" %}
 {% block content %}
 
+<!-- Page title showing selected matchweek -->
 <h1>Matchweek {{ matchweek }} Predictions</h1>
 
+<!-- Form for submitting multiple predictions at once -->
 <form method="POST">
     {% csrf_token %}
 
+    <!-- Table layout for bulk prediction entry -->
     <table>
         <tr>
             <th>Fixture</th>
@@ -14,20 +17,30 @@
 
         {% for item in prediction_forms %}
         <tr>
+
+            <!-- Display fixture teams -->
             <td>
                 {{ item.fixture.home_team }} vs {{ item.fixture.away_team }}
             </td>
+
             <td>
+                <!-- Prevent editing if fixture has already kicked off -->
                 {% if item.fixture.is_locked %}
                     Predictions locked
                 {% else %}
+
+                    <!-- Render prediction inputs for home and away goals -->
                     {{ item.form.predicted_home_goals }}
                     -
                     {{ item.form.predicted_away_goals }}
+
                 {% endif %}
             </td>
+
         </tr>
+
         {% empty %}
+        <!-- Fallback if no fixtures exist for this matchweek -->
         <tr>
             <td colspan="2">No fixtures available for this matchweek.</td>
         </tr>
@@ -36,6 +49,7 @@
 
     <br>
 
+    <!-- Submit button to save all predictions -->
     <button type="submit">Save Predictions</button>
 </form>
 

@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ChampPredict</title>
-    </head>
-    <body>
-        <header>
-            <h1>ChampPredict</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChampPredict</title>
+</head>
+<body>
 
-            <!-- Navigation menu for the site -->
-            <nav>
-                <a href="{% url 'home' %}">Home</a> |
-                <a href="{% url 'fixture_list' %}">Fixtures</a> |
-                <a href="{% url 'leaderboard' %}">Leaderboard</a> |
+    <!-- Site header containing title and navigation -->
+    <header>
+        <h1>ChampPredict</h1>
 
-                {% if user.is_authenticated %}
+        <!-- Main navigation menu -->
+        <nav>
+            <a href="{% url 'home' %}">Home</a> |
+            <a href="{% url 'fixture_list' %}">Fixtures</a> |
+            <a href="{% url 'leaderboard' %}">Leaderboard</a> |
+
+            <!-- Show different navigation options depending on authentication -->
+            {% if user.is_authenticated %}
                 <a href="{% url 'my_predictions' %}">My Predictions</a> |
                 <a href="{% url 'account_logout' %}">Logout</a> |
+                
+                <!-- Display the logged-in user's username -->
                 <span>Logged in as {{ user.username }}</span>
-                {% else %}
+            {% else %}
                 <a href="{% url 'account_login' %}">Login</a> |
                 <a href="{% url 'account_signup' %}">Sign Up</a>
-                {% endif %}
-            </nav>
-        </header>
-
-        <main>
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
             {% endif %}
+        </nav>
+    </header>
 
-            {% block content %}
-            {% endblock %}
-        </main>
-    </body>
+    <main>
+
+        <!-- Display Django success/error messages -->
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Page-specific content will be injected here -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
 </html>

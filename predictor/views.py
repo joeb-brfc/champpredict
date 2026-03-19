@@ -169,6 +169,34 @@ def matchweek_predictions(request, matchweek):
 
     if request.method == "POST":
 
+        # Clear all unlocked predictions for this matchweek
+        if "clear_matchweek" in request.POST:
+            deleted_count = 0
+
+            for fixture in fixtures:
+                if fixture.is_locked():
+                    continue
+
+                deleted, _ = Prediction.objects.filter(
+                    user=request.user,
+                    fixture=fixture
+                ).delete()
+
+                deleted_count += deleted
+
+            if deleted_count > 0:
+                messages.success(
+                    request,
+                    "Matchweek predictions cleared successfully."
+                )
+            else:
+                messages.info(
+                    request,
+                    "No unlocked matchweek predictions were available to clear."
+                )
+
+            return redirect("matchweek_predictions", matchweek=matchweek)
+
         all_valid = True
 
         # Rebuild each form using submitted POST data

@@ -3,8 +3,10 @@
 {% block content %}
 
 <div class="container mt-4">
+
   <h1>My Predictions</h1>
 
+  <!-- Table displaying user's predictions -->
   <table>
     <thead>
       <tr>
@@ -14,19 +16,32 @@
         <th>Points</th>
       </tr>
     </thead>
+
     <tbody>
       {% for prediction in predictions %}
       <tr>
-        <td>{{ prediction.fixture.home_team }} vs {{ prediction.fixture.away_team }}</td>
-        <td>{{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}</td>
+
+        <!-- Display fixture teams -->
         <td>
+          {{ prediction.fixture.home_team }} vs {{ prediction.fixture.away_team }}
+        </td>
+
+        <!-- Display user's predicted score -->
+        <td>
+          {{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}
+        </td>
+
+        <td>
+          <!-- Show result if available, otherwise indicate pending -->
           {% if prediction.fixture.result %}
             {{ prediction.fixture.result.home_goals }} - {{ prediction.fixture.result.away_goals }}
           {% else %}
             Not played yet
           {% endif %}
         </td>
+
         <td>
+          <!-- Calculate and display points earned for this prediction -->
           {% with points=prediction.calculate_points %}
             {% if points is not None %}
               {{ points }}
@@ -35,14 +50,18 @@
             {% endif %}
           {% endwith %}
         </td>
+
       </tr>
+
       {% empty %}
+      <!-- Fallback if user has no predictions -->
       <tr>
         <td colspan="4">You have not made any predictions yet.</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
 </div>
 
-{% endblock %} 
+{% endblock %}

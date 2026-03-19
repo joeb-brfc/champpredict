@@ -2,34 +2,50 @@
 {% block content %}
 
 <div class="container mt-4">
+
   <h1>Championship Fixtures</h1>
 
+  <!-- Only show matchweek prediction link if fixtures exist -->
   {% if fixtures %}
-  {% if user.is_authenticated %}
-  <p>
-    <a href="{% url 'matchweek_predictions' fixtures.0.matchweek %}">
-      Predict all Matchweek {{ fixtures.0.matchweek }} games
-    </a>
-  </p>
-  {% else %}
-  <p>
-    <a href="{% url 'account_login' %}">Login to predict this matchweek</a>
-  </p>
+
+    <!-- Show bulk prediction link for logged-in users -->
+    {% if user.is_authenticated %}
+    <p>
+      <!-- Uses first fixture to determine current matchweek -->
+      <a href="{% url 'matchweek_predictions' fixtures.0.matchweek %}">
+        Predict all Matchweek {{ fixtures.0.matchweek }} games
+      </a>
+    </p>
+
+    {% else %}
+    <!-- Prompt unauthenticated users to log in -->
+    <p>
+      <a href="{% url 'account_login' %}">Login to predict this matchweek</a>
+    </p>
+    {% endif %}
+
   {% endif %}
-  {% endif %}
+
+  <!-- List of fixtures -->
   <ul>
     {% for fixture in fixtures %}
     <li>
+
+      <!-- Link to individual fixture detail page -->
       <a href="{% url 'fixture_detail' fixture.id %}">
-        MW{{ fixture.matchweek }} - {{ fixture.home_team }} vs {{
-        fixture.away_team }}
+        MW{{ fixture.matchweek }} - {{ fixture.home_team }} vs {{ fixture.away_team }}
       </a>
+
+      <!-- Display kickoff date and time -->
       ({{ fixture.kickoff_datetime }})
     </li>
+
     {% empty %}
+    <!-- Fallback if no fixtures exist -->
     <li>No fixtures available.</li>
     {% endfor %}
   </ul>
+
 </div>
 
 {% endblock %}
