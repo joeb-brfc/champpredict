@@ -129,6 +129,15 @@ This allows predictions and leaderboard scoring to operate using real-world matc
 - Clicking a fixture opens a **fixture detail page**.
 - The fixture detail page displays match information and allows logged-in users to submit predictions.
 
+### Fixture Navigation Enhancements
+
+- The fixtures page acts as the primary entry point for submitting predictions.
+- Logged-in users are presented with a dynamic link to predict all fixtures within the current matchweek.
+- Logged-out users are shown a prompt to log in before making predictions.
+- This removes the need for hardcoded navigation links and ensures matchweek selection is always based on live fixture data.
+
+This creates a smoother flow, taking users from browsing fixtures straight into submitting their predictions.
+
 ### Matchweek Predictions
 
 To improve the user experience, the application allows users to submit predictions for an entire matchweek from a single page.
@@ -144,12 +153,25 @@ Key functionality includes:
 - Fixtures that have passed their kickoff time are automatically locked and cannot be edited.
 - A confirmation message is displayed when predictions are successfully saved.
 
-This significantly improves usability compared to submitting predictions fixture-by-fixture.
+This removes the need to go in and out of individual fixtures, making the process much quicker and easier for the user.
+
+Access to matchweek predictions is integrated into the fixtures page rather than the global navigation. 
+
+The application dynamically generates a "Predict all Matchweek X games" link based on fixture data, ensuring the correct matchweek is passed to the prediction view without hardcoding values.
+
+This approach improves scalability and ensures users always access the correct matchweek when submitting bulk predictions.
 
 ### Authentication
 
-- Visitors can browse fixtures without logging in.
-- Only authenticated users can submit or edit predictions.
+- Visitors can browse fixtures and view leaderboard data without logging in.
+- Navigation links are conditionally displayed based on authentication status.
+- Only authenticated users can access prediction-related features such as:
+  - submitting predictions
+  - editing predictions
+  - viewing personal predictions
+- Logged-out users are prompted to log in when attempting to access prediction functionality.
+
+This ensures a clear separation between public browsing and authenticated interaction.
 
 ## 🔄 Prediction Workflow
 
@@ -226,7 +248,7 @@ Users receive confirmation messages such as:
 - "Prediction updated successfully."
 - "Matchweek predictions saved successfully."
 
-This improves usability by clearly informing users when their actions have been completed successfully.
+This helps users understand when their actions have worked as expected.
 
 
 ---
@@ -243,7 +265,15 @@ This improves usability by clearly informing users when their actions have been 
 
 ## 🎨 UX Design
 
-_To be completed during development._
+### Navigation Design
+
+The navigation structure was refined to improve usability and clarity:
+
+- Global navigation provides access to core pages such as fixtures, leaderboard and user predictions.
+- Context-specific actions, such as submitting matchweek predictions, are accessed through the fixtures page rather than the navigation bar.
+- This prevents clutter and ensures users interact with features in a logical, data-driven flow.
+
+This design choice aligns with real-world application patterns where actions are tied to relevant data views.
 
 ---
 
@@ -295,7 +325,7 @@ The application uses a relational database structure with the following core mod
 - Each **Fixture** has one **Result**
 - Each **Fixture** references two **Teams** (home and away)
 
-This relational structure ensures fixtures and predictions remain consistent and prevents duplicated team data.
+This structure keeps the data consistent and avoids duplicating team information across multiple fixtures.
 
 ---
 
@@ -332,6 +362,9 @@ This relational structure ensures fixtures and predictions remain consistent and
 - Verified that submitting the form saves multiple predictions simultaneously.
 - Confirmed that fixtures with kickoff times in the past are locked and cannot be modified.
 - Verified that a confirmation message is displayed when matchweek predictions are saved.
+- Verified that the matchweek prediction link dynamically uses fixture data rather than a hardcoded value.
+- Confirmed that logged-out users are prompted to log in instead of accessing prediction functionality.
+- Verified that navigation links update correctly depending on authentication state.
 
 ### Leaderboard Testing
 
