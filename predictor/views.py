@@ -16,20 +16,29 @@ def home(request):
 # Retrieves all fixtures from the database and displays them on the fixture list page.
 def fixture_list(request):
 
-   # Fetch all fixtures ordered by matchweek, then by kickoff time
+    # Fetch all fixtures ordered by matchweek, then by kickoff time
     fixtures = Fixture.objects.select_related(
         "home_team",
         "away_team"
     ).order_by("matchweek", "kickoff_datetime")
 
+    # Group fixtures by matchweek
+    grouped_fixtures = {}
+
+    # Place each fixture into its matchweek group
+    for fixture in fixtures:
+        if fixture.matchweek not in grouped_fixtures:
+            grouped_fixtures[fixture.matchweek] = []
+
+        grouped_fixtures[fixture.matchweek].append(fixture)
+
     # Data we want to send to the template
     context = {
-        "fixtures": fixtures
+        "grouped_fixtures": grouped_fixtures,
     }
 
     # Render the template with the fixtures
     return render(request, "predictor/fixture_list.html", context)
-
 
 # Fixture detail view
 # Displays information for a single fixture and shows the prediction form.
