@@ -1,84 +1,73 @@
 {% extends "predictor/base.html" %}
-
 {% block content %}
 
-<div class="container mt-4">
+<h1>My Predictions</h1>
 
-  <h1>My Predictions</h1>
-
-  <!-- ========================= -->
+<!-- ========================= -->
 <!-- UPCOMING PREDICTIONS -->
 <!-- ========================= -->
+
 <h2>Upcoming Predictions</h2>
 
-<!-- Placeholder - content will be added next -->
-<p>Upcoming predictions will appear here.</p>
+{% if upcoming_predictions %}
+<table>
+    <tr>
+        <th>Fixture</th>
+        <th>My Prediction</th>
+        <th>Status</th>
+    </tr>
+
+    {% for prediction in upcoming_predictions %}
+    <tr>
+        <!-- Display fixture teams -->
+        <td>{{ prediction.fixture.home_team }} vs {{ prediction.fixture.away_team }}</td>
+
+        <!-- Display predicted score -->
+        <td>{{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}</td>
+
+        <!-- Indicate editable status -->
+        <td>Editable before kickoff</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No upcoming predictions.</p>
+{% endif %}
 
 <br>
 
 <!-- ========================= -->
 <!-- PENDING RESULTS -->
 <!-- ========================= -->
+
 <h2>Awaiting Results</h2>
 
-<p>Predictions awaiting results will appear here.</p>
-
-  <!-- Table displaying user's predictions -->
-  <table>
-    <thead>
-      <tr>
+{% if pending_result_predictions %}
+<table>
+    <tr>
         <th>Fixture</th>
-        <th>My Prediction</th>
-        <th>Result</th>
-        <th>Points</th>
-      </tr>
-    </thead>
+        <th>Prediction</th>
+        <th>Status</th>
+    </tr>
 
-    <tbody>
-      {% for prediction in predictions %}
-      <tr>
+    {% for prediction in pending_result_predictions %}
+    <tr>
+        <td>{{ prediction.fixture.home_team }} vs {{ prediction.fixture.away_team }}</td>
+        <td>{{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}</td>
 
-        <!-- Display fixture teams -->
-        <td>
-          {{ prediction.fixture.home_team }} vs {{ prediction.fixture.away_team }}
-        </td>
+        <!-- Fixture locked but result not entered -->
+        <td>Waiting for result</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No predictions awaiting results.</p>
+{% endif %}
 
-        <!-- Display user's predicted score -->
-        <td>
-          {{ prediction.predicted_home_goals }} - {{ prediction.predicted_away_goals }}
-        </td>
+<br>
 
-        <td>
-          <!-- Show result if available, otherwise indicate pending -->
-          {% if prediction.fixture.result %}
-            {{ prediction.fixture.result.home_goals }} - {{ prediction.fixture.result.away_goals }}
-          {% else %}
-            Not played yet
-          {% endif %}
-        </td>
-
-        <td>
-          <!-- Calculate and display points earned for this prediction -->
-          {% with points=prediction.calculate_points %}
-            {% if points is not None %}
-              {{ points }}
-            {% else %}
-              Pending
-            {% endif %}
-          {% endwith %}
-        </td>
-
-      </tr>
-
-      {% empty %}
-      <!-- Fallback if user has no predictions -->
-      <tr>
-        <td colspan="4">You have not made any predictions yet.</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-</div>
+<!-- Completed section still placeholder -->
+<h2>Completed Predictions</h2>
+<p>Completed predictions will appear here.</p>
 
 {% endblock %}
