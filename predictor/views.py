@@ -34,6 +34,7 @@ def fixture_list(request):
 
     # Data we want to send to the template
     context = {
+        "fixtures": fixtures,
         "grouped_fixtures": grouped_fixtures,
     }
 
