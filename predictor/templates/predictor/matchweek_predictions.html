@@ -4,6 +4,17 @@
 <!-- Page title showing selected matchweek -->
 <h1>Matchweek {{ matchweek }} Predictions</h1>
 
+<form method="POST">
+    {% csrf_token %}
+    <button 
+        type="submit" 
+        name="clear_matchweek" 
+        value="1"
+        onclick="return confirm('Are you sure you want to clear your saved predictions for this matchweek?')">
+        Clear Matchweek Predictions
+    </button>
+</form>
+
 <!-- Form for submitting multiple predictions at once -->
 <form method="POST">
     {% csrf_token %}
