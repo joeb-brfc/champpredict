@@ -16,8 +16,11 @@ def home(request):
 # Retrieves all fixtures from the database and displays them on the fixture list page.
 def fixture_list(request):
 
-    # Fetch all fixtures
-    fixtures = Fixture.objects.all()
+   # Fetch all fixtures ordered by matchweek, then by kickoff time
+    fixtures = Fixture.objects.select_related(
+        "home_team",
+        "away_team"
+    ).order_by("matchweek", "kickoff_datetime")
 
     # Data we want to send to the template
     context = {
