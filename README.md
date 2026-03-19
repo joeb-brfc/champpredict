@@ -37,6 +37,46 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 ---
 
+## 🚀 Key Features (Recent Improvements)
+
+### Matchweek-Based Fixture Organisation
+
+Fixtures are grouped by matchweek instead of displayed as a flat list.
+
+This improves:
+- clarity when browsing fixtures
+- alignment with real football scheduling
+- scalability as more fixtures are added
+
+Each matchweek now includes a direct link to submit predictions.
+
+---
+
+### Bulk Matchweek Predictions
+
+Users can submit predictions for all fixtures in a matchweek from a single page.
+
+- multiple fixtures displayed together
+- existing predictions preloaded
+- locked fixtures cannot be edited
+- users can clear predictions before kickoff
+
+This removes the need to enter predictions one fixture at a time.
+
+---
+
+### My Predictions Page Improvements
+
+Predictions are grouped into:
+
+- Upcoming (editable)
+- Awaiting Results
+- Completed (scored)
+
+This makes it easier to understand prediction status at a glance.
+
+---
+
 ## 👤 User Stories
 
 ### Visitor
@@ -128,15 +168,18 @@ This allows predictions and leaderboard scoring to operate using real-world matc
 - Users can browse a list of upcoming fixtures.
 - Clicking a fixture opens a **fixture detail page**.
 - The fixture detail page displays match information and allows logged-in users to submit predictions.
+- Fixtures are grouped by matchweek to improve navigation and user experience.
 
 ### Fixture Navigation Enhancements
 
 - The fixtures page acts as the primary entry point for submitting predictions.
-- Logged-in users are presented with a dynamic link to predict all fixtures within the current matchweek.
+- Logged-in users are presented with dynamic prediction links for each matchweek shown on the fixtures page.
 - Logged-out users are shown a prompt to log in before making predictions.
 - This removes the need for hardcoded navigation links and ensures matchweek selection is always based on live fixture data.
 
 This creates a smoother flow, taking users from browsing fixtures straight into submitting their predictions.
+
+Matchweek prediction links are dynamically generated per matchweek rather than relying on a single "current matchweek" value.
 
 ### Matchweek Predictions
 
@@ -217,7 +260,7 @@ The application includes several validation rules to ensure data consistency:
 
 ### My Predictions
 
-- Registered users can view a dedicated My Predictions page.
+- Registered users can view a dedicated **My Predictions** page.
 - Predictions are now grouped into three clear sections to improve usability:
 
   - **Upcoming Predictions**
@@ -413,7 +456,7 @@ This structure keeps the data consistent and avoids duplicating team information
 - Verified that predictions cannot be updated after fixture kickoff.
 - Confirmed that bulk matchweek prediction entry validates incomplete score pairs.
 - Verified that matchweek predictions can be saved for multiple fixtures in a single submission.
-A validation bug was identified in the Fixture.clean() method where one team check was incorrectly placed outside the loop iterating through existing fixtures. This caused an UnboundLocalError when adding fixtures through the admin panel. The issue was resolved by moving both validation checks inside the loop.
+- A validation bug was identified in the Fixture.clean() method where one team check was incorrectly placed outside the loop iterating through existing fixtures. This caused an UnboundLocalError when adding fixtures through the admin panel. The issue was resolved by moving both validation checks inside the loop.
 
 ### My Predictions Grouping Testing
 
@@ -444,6 +487,7 @@ A validation bug was identified in the Fixture.clean() method where one team che
 
 - This highlighted the importance of clearly separating development and production configuration, particularly when using environment variables.
 
+- Verified that fixture grouping and matchweek prediction links display correctly in production after deployment.
 
 
 ### Development vs Production Database
@@ -488,6 +532,20 @@ This required:
 - restructuring the template into multiple sections
 
 This significantly improved usability and reduced confusion when reviewing predictions.
+
+### Environment and Data Sync Challenges
+
+Several real-world issues were encountered and resolved during development:
+
+- Local and production databases were not synchronised, resulting in missing fixtures locally. This was resolved using `dumpdata` and `loaddata`.
+
+- Fixture import initially failed due to encoding issues. This was fixed by saving the JSON file as UTF-8.
+
+- Static files failed to load locally due to incorrect DEBUG configuration. This was resolved by ensuring DEBUG=True in development.
+
+- A validation bug in the Fixture model caused an UnboundLocalError. This was fixed by correcting the loop structure.
+
+These challenges improved understanding of deployment environments, data handling and debugging in Django.
 
 ---
 
