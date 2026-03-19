@@ -161,6 +161,8 @@ The application dynamically generates a "Predict all Matchweek X games" link bas
 
 This approach improves scalability and ensures users always access the correct matchweek when submitting bulk predictions.
 
+- Users can clear their saved predictions for a selected matchweek before kickoff if they want to start again.
+
 ### Authentication
 
 - Visitors can browse fixtures and view leaderboard data without logging in.
@@ -365,6 +367,9 @@ This structure keeps the data consistent and avoids duplicating team information
 - Verified that the matchweek prediction link dynamically uses fixture data rather than a hardcoded value.
 - Confirmed that logged-out users are prompted to log in instead of accessing prediction functionality.
 - Verified that navigation links update correctly depending on authentication state.
+- Verified that users can clear saved predictions for a selected matchweek.
+- Confirmed that only unlocked predictions are cleared.
+- Verified that a confirmation message is displayed after clearing predictions.
 
 ### Leaderboard Testing
 
