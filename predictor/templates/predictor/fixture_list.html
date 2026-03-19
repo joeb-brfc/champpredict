@@ -11,9 +11,12 @@
       Predict all Matchweek {{ fixtures.0.matchweek }} games
     </a>
   </p>
+  {% else %}
+  <p>
+    <a href="{% url 'account_login' %}">Login to predict this matchweek</a>
+  </p>
   {% endif %}
   {% endif %}
-
   <ul>
     {% for fixture in fixtures %}
     <li>
