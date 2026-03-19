@@ -217,14 +217,25 @@ The application includes several validation rules to ensure data consistency:
 
 ### My Predictions
 
-- Registered users can view a dedicated **My Predictions** page.
-- This page displays all predictions submitted by the logged-in user.
-- Each prediction shows:
-  - the fixture
-  - the predicted score
-  - the actual result (if available)
-  - the points earned
-- Predictions for fixtures without results are marked as **Pending**.
+- Registered users can view a dedicated My Predictions page.
+- Predictions are now grouped into three clear sections to improve usability:
+
+  - **Upcoming Predictions**
+    - Displays fixtures that have not yet kicked off
+    - Predictions can still be edited
+
+  - **Awaiting Results**
+    - Displays fixtures that have kicked off but do not yet have a recorded result
+    - Predictions are locked and cannot be modified
+
+  - **Completed Predictions**
+    - Displays fixtures with recorded results
+    - Shows:
+      - predicted score
+      - actual result
+      - points earned
+
+- This grouping removes duplication and provides a clearer overview of prediction status.
 
 ### Admin Management
 
@@ -276,6 +287,24 @@ The navigation structure was refined to improve usability and clarity:
 - This prevents clutter and ensures users interact with features in a logical, data-driven flow.
 
 This design choice aligns with real-world application patterns where actions are tied to relevant data views.
+
+### My Predictions UX Improvements
+
+The My Predictions page was redesigned to improve clarity and reduce repetition.
+
+Previously, all predictions were displayed in a single table, which made it difficult for users to understand the status of each prediction.
+
+The updated design separates predictions into:
+
+- upcoming (editable)
+- awaiting results
+- completed (scored)
+
+This approach aligns with real-world prediction platforms and improves usability by allowing users to quickly understand:
+
+- which predictions they can still change
+- which are waiting for results
+- which have been scored
 
 ---
 
@@ -386,6 +415,20 @@ This structure keeps the data consistent and avoids duplicating team information
 - Verified that matchweek predictions can be saved for multiple fixtures in a single submission.
 A validation bug was identified in the Fixture.clean() method where one team check was incorrectly placed outside the loop iterating through existing fixtures. This caused an UnboundLocalError when adding fixtures through the admin panel. The issue was resolved by moving both validation checks inside the loop.
 
+### My Predictions Grouping Testing
+
+- Verified that predictions are correctly grouped into:
+  - upcoming (pre-kickoff)
+  - awaiting results (post-kickoff, no result)
+  - completed (result available)
+
+- Confirmed that:
+  - predictions appear in only one section at a time
+  - predictions move between sections as fixture status changes
+  - completed predictions display correct match results and calculated points
+
+- Tested behaviour across multiple fixtures with different kickoff times and result states to ensure accurate grouping logic.
+
 ### Deployment Testing
 
 - After deploying new code to Heroku, the application initially returned a **500 server error** on fixture pages because the production database schema had not yet been updated. This was resolved by running:
@@ -400,6 +443,8 @@ A validation bug was identified in the Fixture.clean() method where one team che
 - The issue was resolved by updating the `DEBUG` setting to default to `True` locally unless explicitly overridden by an environment variable. Additionally, the `STATIC_URL` setting was corrected to include a leading slash (`/static/`), ensuring static file paths were resolved correctly.
 
 - This highlighted the importance of clearly separating development and production configuration, particularly when using environment variables.
+
+
 
 ### Development vs Production Database
 
@@ -424,6 +469,25 @@ To resolve this, I separated the functionality into two forms:
 - one for clearing predictions
 
 This made the request handling much clearer and ensured that each action triggered the correct logic in the view.
+
+### Improving Prediction Visibility
+
+During development, the My Predictions page initially displayed all predictions in a single table.
+
+This created a poor user experience, as users could not easily distinguish between:
+
+- editable predictions
+- locked predictions
+- completed predictions
+
+To improve this, the page was redesigned to group predictions based on fixture status.
+
+This required:
+
+- updating backend logic to categorise predictions
+- restructuring the template into multiple sections
+
+This significantly improved usability and reduced confusion when reviewing predictions.
 
 ---
 
