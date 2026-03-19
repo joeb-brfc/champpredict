@@ -87,13 +87,13 @@ class Fixture(models.Model):
             if self.home_team in [fixture.home_team, fixture.away_team]:
                 raise ValidationError(
                     f"{self.home_team} already has a fixture in matchweek {self.matchweek}."
-            )
+                )
 
-        if self.away_team in [fixture.home_team, fixture.away_team]:
-            raise ValidationError(
-                f"{self.away_team} already has a fixture in matchweek {self.matchweek}."
-            )
-
+            if self.away_team in [fixture.home_team, fixture.away_team]:
+                raise ValidationError(
+                    f"{self.away_team} already has a fixture in matchweek {self.matchweek}."
+                )
+        
     def is_locked(self):
         # Returns True once kickoff time has passed
         # Used to stop predictions being edited after kickoff
