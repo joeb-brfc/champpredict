@@ -148,7 +148,6 @@ def leaderboard(request):
 @login_required
 def my_predictions(request):
 
-    # Fetch all predictions for the logged-in user
     predictions = Prediction.objects.filter(user=request.user).select_related(
         "fixture",
         "fixture__result",
@@ -156,8 +155,36 @@ def my_predictions(request):
         "fixture__away_team",
     ).order_by("fixture__kickoff_datetime")
 
+    # Create lists for grouping
+    upcoming_predictions = []
+    pending_result_predictions = []
+    completed_predictions = []
+
+    # Categorise predictions
+    for prediction in predictions:
+        fixture = prediction.fixture
+
+        if not fixture.is_locked():
+            upcoming_predictions.append(prediction)
+
+        elif hasattr(fixture, "result"):
+            completed_predictions.append(prediction)
+
+        else:
+            pending_result_predictions.append(prediction)
+
+    # # Temporary debug check
+    # print(
+    #     len(upcoming_predictions),
+    #     len(pending_result_predictions),
+    #     len(completed_predictions)
+    # )        
+
     return render(request, "predictor/my_predictions.html", {
-        "predictions": predictions
+        "predictions": predictions,  # keep old one temporarily
+        "upcoming_predictions": upcoming_predictions,
+        "pending_result_predictions": pending_result_predictions,
+        "completed_predictions": completed_predictions,
     })
 
 # Matchweek prediction view
