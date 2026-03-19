@@ -17,8 +17,6 @@
 
                 {% if user.is_authenticated %}
                 <a href="{% url 'my_predictions' %}">My Predictions</a> |
-                <a href="{% url 'matchweek_predictions' 39 %}">Matchweek
-                    Predictions</a> |
                 <a href="{% url 'account_logout' %}">Logout</a> |
                 <span>Logged in as {{ user.username }}</span>
                 {% else %}
