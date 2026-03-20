@@ -618,8 +618,9 @@ https://docs.djangoproject.com/en/stable/ref/forms/validation/
 
 ## 🔮 Future Features
 
-- Football Pontoon prediction game
+- Football Pontoon prediction gamethank you, w
 - Private prediction leagues
 - Prediction statistics and insights
+- Expand the fixture detail page into a richer match preview area, including team form, league position, head-to-head records, and notable fixture facts to help users make more informed predictions.
 - Email confirmation receipts providing users with a timestamped summary of their submitted predictions.
 
