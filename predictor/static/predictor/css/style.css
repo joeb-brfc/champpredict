@@ -1,12 +1,28 @@
+/* ChampPredict Base Styling */
+
 body {
-    background-color: red;
+    background-color: #F8F9FA;
+    font-family: Arial, sans-serif;
 }
 
+/* Header styling */
 header {
-    background-color: blue;
+    background-color: #0057B8;
     color: white;
 }
 
+/* Navigation links */
 nav a {
-    color: yellow;
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main heading */
+h1 {
+    font-weight: bold;
 }
