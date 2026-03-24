@@ -26,3 +26,22 @@ nav a:hover {
 h1 {
     font-weight: bold;
 }
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.card-title {
+    color: #0057B8;
+}
+
+thead {
+    background-color: #0057B8;
+    color: white;
+}
+
+table td,
+table th {
+    vertical-align: middle;
+}

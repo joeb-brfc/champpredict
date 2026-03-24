@@ -5,41 +5,48 @@
 
   <h1>Championship Fixtures</h1>
 
-  
-
-  <!-- List of fixtures -->
+  <!-- Loop through grouped fixtures by matchweek -->
   {% for matchweek, fixtures in grouped_fixtures.items %}
 
+  <!-- Display matchweek heading -->
   <h2>Matchweek {{ matchweek }}</h2>
 
+  <!-- Show prediction link only if user is logged in -->
   {% if user.is_authenticated %}
   <p>
+    <!-- Link to bulk prediction page for this matchweek -->
     <a href="{% url 'matchweek_predictions' matchweek %}">
       Predict Matchweek {{ matchweek }}
     </a>
   </p>
-{% else %}
+  {% else %}
   <p>
+    <!-- Prompt user to log in before predicting -->
     <a href="{% url 'account_login' %}">
       Login to predict Matchweek {{ matchweek }}
     </a>
   </p>
-{% endif %}
+  {% endif %}
 
+  <!-- List of fixtures within the current matchweek -->
   <ul>
     {% for fixture in fixtures %}
     <li>
+      <!-- Link to individual fixture detail page -->
       <a href="{% url 'fixture_detail' fixture.id %}">
         {{ fixture.home_team }} vs {{ fixture.away_team }}
       </a>
+
+      <!-- Display fixture kickoff date and time -->
       ({{ fixture.kickoff_datetime }})
     </li>
     {% endfor %}
   </ul>
 
-{% empty %}
+  <!-- If no fixtures exist -->
+  {% empty %}
   <p>No fixtures available.</p>
-{% endfor %}
+  {% endfor %}
 
 </div>
 
