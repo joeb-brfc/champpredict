@@ -1,0 +1,12 @@
+body {
+    background-color: red;
+}
+
+header {
+    background-color: blue;
+    color: white;
+}
+
+nav a {
+    color: yellow;
+}

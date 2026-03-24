@@ -547,6 +547,57 @@ Several real-world issues were encountered and resolved during development:
 
 These challenges improved understanding of deployment environments, data handling and debugging in Django.
 
+### Static Files and CSS Issue
+
+During development, an issue occurred where custom CSS was not being applied to the application.
+
+### Issue
+
+- The application appeared unstyled despite linking the stylesheet in the base template.
+- Inline styles worked, confirming that templates were rendering correctly.
+- Attempting to access the stylesheet directly initially returned a 404 error.
+
+### Investigation
+
+- Checked that `{% load static %}` and the `<link>` tag were correctly set in the template.
+- Tested inline CSS to confirm styling could be applied.
+- Used Django’s static file lookup command:
+
+```bash
+python manage.py findstatic predictor/style.css --verbosity 2
+```
+
+This confirmed that Django could not locate the stylesheet.
+
+### Resolution
+
+The issue was caused by an incorrect static file structure.
+
+The stylesheet was originally stored in:
+
+```text
+predictor/static/css/style.css
+```
+
+It was moved to a namespaced location:
+
+```text
+predictor/static/predictor/css/style.css
+```
+
+The template was updated accordingly:
+
+```html
+<link rel="stylesheet" href="{% static 'predictor/css/style.css' %}">
+```
+
+After restarting the server, the CSS loaded correctly.
+
+### Outcome
+
+- Custom styling now applies across all pages
+- Improved understanding of Django static file structure and debugging process
+
 ---
 
 ## 🚀 Deployment
