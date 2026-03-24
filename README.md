@@ -498,6 +498,16 @@ Because these environments are separate, predictions created locally do not appe
 
 This separation allows development changes to be tested locally without affecting live user data.
 
+### Frontend and Responsiveness Testing
+
+- The **My Predictions** page was tested across different screen sizes using browser developer tools.
+- Bootstrap’s responsive grid system and `table-responsive` class were used to ensure tables remain usable on smaller screens.
+- Verified that:
+  - tables scroll horizontally on mobile devices instead of breaking layout
+  - text remains readable without overlapping
+  - navigation and headings scale correctly across screen sizes
+- Tested pages on desktop and simulated mobile view to confirm consistent layout and usability.
+
 ---
 
 ## ⚠️ Development Challenges
@@ -664,6 +674,20 @@ Prediction form validation follows standard Django `ModelForm` validation patter
 
 Reference:  
 https://docs.djangoproject.com/en/stable/ref/forms/validation/
+
+### Bootstrap
+
+This project uses the Bootstrap framework to provide responsive layout and UI components such as:
+
+- grid system for layout structure  
+- tables for displaying prediction data  
+- cards for grouping content  
+- badges for visual status indicators  
+
+Bootstrap classes were used and adapted to fit the ChampPredict design rather than writing all styling from scratch.
+
+Reference:  
+https://getbootstrap.com/
 
 ---
 
