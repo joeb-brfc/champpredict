@@ -516,6 +516,11 @@ This separation allows development changes to be tested locally without affectin
   - text remains readable without overlapping
   - navigation and headings scale correctly across screen sizes
 - Tested pages on desktop and simulated mobile view to confirm consistent layout and usability.
+- Login and signup pages were tested after overriding django-allauth templates to ensure:
+  - custom templates render instead of default allauth pages  
+  - base layout and navigation are consistent across authentication pages  
+  - forms display correctly using Bootstrap styling  
+- Verified that authentication pages remain usable on smaller screen sizes  
 
 ---
 
@@ -616,6 +621,32 @@ After restarting the server, the CSS loaded correctly.
 
 - Custom styling now applies across all pages
 - Improved understanding of Django static file structure and debugging process
+
+### Authentication Template Override (Allauth)
+
+During development, the default django-allauth login and signup pages were displayed instead of the custom templates.
+
+### Issue
+
+- Custom templates were created but not being used
+- The default allauth "Menu: Sign In / Sign Up" layout continued to appear
+- This indicated that Django was not locating the override templates
+
+### Investigation
+
+- Confirmed that template inheritance (`{% extends "predictor/base.html" %}`) was correct
+- Reviewed Django template loading behaviour and how third-party templates are resolved
+- Identified that allauth uses the template path `account/login.html` and `account/signup.html`
+
+### Resolution
+
+Custom templates were moved to match the expected structure:
+
+```text
+templates/account/login.html
+templates/account/signup.html
+
+This ensured Django could override the default allauth templates correctly.
 
 ---
 
