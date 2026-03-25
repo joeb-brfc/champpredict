@@ -65,3 +65,7 @@
 </form>
 
 {% endblock %}
+
+<!--This template provides a bulk prediction interface for an entire matchweek, allowing users to submit multiple predictions in one form. It dynamically renders fixtures alongside input fields using a loop of form instances.
+It includes advanced form handling, with CSRF protection, multiple POST actions, and conditional logic to prevent editing once a fixture is locked using a model method (is_locked).
+There’s also a user control feature to clear predictions, with a confirmation prompt to prevent accidental data loss, improving usability and safeguarding user input.-->

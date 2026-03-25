@@ -86,3 +86,7 @@
 </div>
 
 {% endblock %}
+
+<!--This template renders a fixture detail page, displaying match information such as teams, matchweek, kickoff time, and the result if it exists. It uses Django template variables and conditionals to dynamically show data from the database.
+It includes user-specific functionality, allowing authenticated users to view their prediction, see points earned, and either submit or update a prediction using a Django form. The logic adapts depending on whether a prediction already exists.
+There is also business logic implemented at template level, such as preventing predictions after kickoff using a model method (fixture.is_locked), and restricting access to logged-in users only, improving data integrity and user experience.-->

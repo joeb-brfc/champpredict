@@ -8,6 +8,15 @@ Users submit predictions before kickoff and earn points based on the accuracy of
 
 ---
 
+
+## 🌐 Live Application
+
+The deployed application can be accessed here:
+
+[ChampPredict Live Site](https://champ-predict-app-fa154106af37.herokuapp.com/)
+
+---
+
 ## 📑 Table of Contents
 
 - [Project Goals](#-project-goals)
@@ -647,14 +656,6 @@ git push heroku main
 
 ---
 
-## 🌐 Live Application
-
-The deployed application can be accessed here:
-
-[ChampPredict Live Site](https://champ-predict-app-fa154106af37.herokuapp.com/)
-
----
-
 ## 🔐 Security
 
 _To be documented during development._
@@ -693,7 +694,7 @@ https://getbootstrap.com/
 
 ## 🔮 Future Features
 
-- Football Pontoon prediction gamethank you, w
+- Football Pontoon prediction game
 - Private prediction leagues
 - Prediction statistics and insights
 - Expand the fixture detail page into a richer match preview area, including team form, league position, head-to-head records, and notable fixture facts to help users make more informed predictions.
