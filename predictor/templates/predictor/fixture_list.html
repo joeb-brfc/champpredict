@@ -3,45 +3,56 @@
 
 <div class="container mt-4">
 
-  <h1>Championship Fixtures</h1>
+  <!-- Main page heading -->
+  <h1 class="mb-4">Championship Fixtures</h1>
 
   <!-- Loop through grouped fixtures by matchweek -->
   {% for matchweek, fixtures in grouped_fixtures.items %}
 
-  <!-- Display matchweek heading -->
-  <h2>Matchweek {{ matchweek }}</h2>
+  <!-- Matchweek card -->
+  <div class="card mb-4">
+    <div class="card-body">
 
-  <!-- Show prediction link only if user is logged in -->
-  {% if user.is_authenticated %}
-  <p>
-    <!-- Link to bulk prediction page for this matchweek -->
-    <a href="{% url 'matchweek_predictions' matchweek %}">
-      Predict Matchweek {{ matchweek }}
-    </a>
-  </p>
-  {% else %}
-  <p>
-    <!-- Prompt user to log in before predicting -->
-    <a href="{% url 'account_login' %}">
-      Login to predict Matchweek {{ matchweek }}
-    </a>
-  </p>
-  {% endif %}
+      <!-- Display matchweek heading -->
+      <h2 class="mb-3">Matchweek {{ matchweek }}</h2>
 
-  <!-- List of fixtures within the current matchweek -->
-  <ul>
-    {% for fixture in fixtures %}
-    <li>
-      <!-- Link to individual fixture detail page -->
-      <a href="{% url 'fixture_detail' fixture.id %}">
-        {{ fixture.home_team }} vs {{ fixture.away_team }}
-      </a>
+      <!-- Show prediction link only if user is logged in -->
+      {% if user.is_authenticated %}
+      <p>
+        <!-- Link to bulk prediction page for this matchweek -->
+        <a class="btn btn-primary btn-sm" href="{% url 'matchweek_predictions' matchweek %}">
+          Predict Matchweek {{ matchweek }}
+        </a>
+      </p>
+      {% else %}
+      <p>
+        <!-- Prompt user to log in before predicting -->
+        <a class="btn btn-outline-primary btn-sm" href="{% url 'account_login' %}">
+          Login to predict Matchweek {{ matchweek }}
+        </a>
+      </p>
+      {% endif %}
 
-      <!-- Display fixture kickoff date and time -->
-      ({{ fixture.kickoff_datetime }})
-    </li>
-    {% endfor %}
-  </ul>
+      <!-- List of fixtures within the current matchweek -->
+      <ul class="list-group list-group-flush">
+        {% for fixture in fixtures %}
+        <li class="list-group-item">
+
+          <!-- Link to individual fixture detail page -->
+          <a class="fixture-link" href="{% url 'fixture_detail' fixture.id %}">
+            {{ fixture.home_team }} vs {{ fixture.away_team }}
+          </a>
+
+          <!-- Display fixture kickoff date and time -->
+          <div class="fixture-time text-muted small">
+            {{ fixture.kickoff_datetime|date:"D j M Y, g:i a" }}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
 
   <!-- If no fixtures exist -->
   {% empty %}
@@ -51,7 +62,3 @@
 </div>
 
 {% endblock %}
-
-<!--This template displays a list of fixtures grouped by matchweek, using a Django loop to iterate through a dictionary of grouped data. Each matchweek is clearly separated, improving readability and organisation for the user.
-It includes conditional navigation based on authentication, showing a prediction link for logged-in users and a login prompt for guests, which supports access control and guides user behaviour.
-Each fixture links to a detailed fixture page, creating a clear user journey, while also displaying kickoff times to provide key contextual information for predictions.-->

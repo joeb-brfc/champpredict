@@ -45,3 +45,54 @@ table td,
 table th {
     vertical-align: middle;
 }
+
+/* Placeholder image boxes */
+.placeholder-box {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Improve headings slightly */
+h3 {
+    color: #0057B8;
+}
+
+/* Fixture page cards */
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+/* Matchweek headings */
+.card h2 {
+    color: #0057B8;
+    font-size: 1.75rem;
+}
+
+/* Fixture links */
+.fixture-link {
+    color: #0057B8;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.fixture-link:hover {
+    text-decoration: underline;
+}
+
+/* Kickoff time text */
+.fixture-time {
+    margin-top: 4px;
+}
+
+/* List group spacing */
+.list-group-item {
+    padding-left: 0;
+    padding-right: 0;
+}
