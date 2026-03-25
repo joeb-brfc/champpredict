@@ -151,6 +151,7 @@ The application now supports:
 - viewing a personal **My Predictions** page showing submitted predictions and earned points
 - submitting **bulk predictions for an entire matchweek** from a single page
 - receiving confirmation messages when predictions are created or updated
+- authentication pages (login and signup) customised using Django template overrides and Bootstrap styling
 
 ---
 
@@ -358,6 +359,27 @@ This approach aligns with real-world prediction platforms and improves usability
 - which are waiting for results
 - which have been scored
 
+### Authentication UX Improvements
+
+The default authentication pages provided by django-allauth were replaced with custom templates to ensure consistency with the rest of the application.
+
+Improvements include:
+
+- centred form layout using Bootstrap grid system
+- clear headings and helper text to guide users
+- consistent button styling and navigation links
+- improved spacing and readability across screen sizes
+
+This ensures users have a smoother and more intuitive experience when signing in or creating an account.
+
+### Homepage and Fixture Page Improvements
+
+The homepage was expanded from a simple placeholder into an introduction to the application, giving visitors a clearer understanding of the platform's purpose and planned direction.
+
+The fixtures page was also redesigned using Bootstrap cards, buttons and grouped layout styling to improve readability and make matchweeks easier to browse.
+
+These changes helped the interface feel more consistent and better aligned with a football-themed application.
+
 ---
 
 ## 📸 Screenshots
@@ -383,6 +405,18 @@ Displays users ranked by the total points earned from their predictions.
 ### My Predictions
 
 Displays all predictions submitted by the logged-in user along with results and points earned.
+
+*(Screenshot to be added)*
+
+### Login Page
+
+Displays the customised sign in page using Django allauth template overrides and Bootstrap styling.
+
+*(Screenshot to be added)*
+
+### Sign Up Page
+
+Displays the customised registration page with consistent layout and styling.
 
 *(Screenshot to be added)*
 
@@ -521,6 +555,10 @@ This separation allows development changes to be tested locally without affectin
   - base layout and navigation are consistent across authentication pages  
   - forms display correctly using Bootstrap styling  
 - Verified that authentication pages remain usable on smaller screen sizes  
+- Fixture list and homepage were also visually tested after styling updates to ensure consistent spacing, alignment and readability
+- Verified that Bootstrap components (cards, buttons and layout grid) render correctly across pages
+
+- Verified that links between login and signup pages work correctly after custom template overrides were added
 
 ---
 
@@ -642,11 +680,18 @@ During development, the default django-allauth login and signup pages were displ
 
 Custom templates were moved to match the expected structure:
 
-```text
+```
 templates/account/login.html
 templates/account/signup.html
+```
 
 This ensured Django could override the default allauth templates correctly.
+
+### Outcome
+
+- Custom login and signup pages now render using the main site layout
+- Styling is consistent with the rest of the application
+- Improved understanding of how Django resolves templates for third-party apps
 
 ---
 
@@ -720,6 +765,8 @@ Bootstrap classes were used and adapted to fit the ChampPredict design rather th
 
 Reference:  
 https://getbootstrap.com/
+
+Bootstrap was also used to enhance the layout and styling of authentication pages by applying its grid system and form components to Django allauth templates.
 
 ---
 
