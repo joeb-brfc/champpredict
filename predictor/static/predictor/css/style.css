@@ -96,3 +96,13 @@ h3 {
     padding-left: 0;
     padding-right: 0;
 }
+
+/* Auth card spacing */
+.card {
+    border-radius: 10px;
+}
+
+/* form spacing */
+form p {
+    margin-bottom: 12px;
+}
